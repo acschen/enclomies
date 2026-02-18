@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enclomies — Physician-Guided Testosterone Optimization for High Performers</title>
+  <meta name="description" content="Oral, non-suppressive testosterone optimization protocol. No needles. Preserve fertility. Guided by board-certified physicians. Built for men who refuse to compromise.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0b;
+      --bg-elevated: #111113;
+      --bg-card: #161619;
+      --border: #222228;
+      --border-light: #2a2a32;
+      --text: #e8e8ed;
+      --text-muted: #8a8a9a;
+      --text-dim: #5a5a6a;
+      --accent: #22c55e;
+      --accent-dim: #16a34a;
+      --accent-glow: rgba(34, 197, 94, 0.15);
+      --red: #ef4444;
+      --amber: #f59e0b;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 10, 11, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      color: var(--text);
+    }
+    .logo span { color: var(--accent); }
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      padding: 0.5rem 1.25rem;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .nav-cta:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* ---- SECTIONS ---- */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      padding: 0.4rem 0.8rem;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      background: rgba(34, 197, 94, 0.05);
+      margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.25rem, 5.5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+    }
+    .hero h1 .accent { color: var(--accent); }
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+    .hero-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+    }
+    .hero-feature {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      padding: 0.4rem 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .hero-feature::before {
+      content: '>';
+      color: var(--accent);
+      margin-right: 0.4rem;
+    }
+
+    /* ---- CTA BUTTONS ---- */
+    .btn-primary {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      padding: 0.9rem 2rem;
+      background: var(--accent);
+      color: var(--bg);
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary:hover {
+      background: #2dd468;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+    }
+    .btn-secondary {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      padding: 0.9rem 2rem;
+      background: transparent;
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--border-light);
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-left: 1rem;
+    }
+    .btn-secondary:hover {
+      border-color: var(--text-muted);
+    }
+
+    /* ---- PROBLEM SECTION ---- */
+    .problem-section { background: var(--bg-elevated); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .problem-card {
+      padding: 1.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .problem-card:hover { border-color: var(--border-light); }
+    .problem-icon {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--amber);
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+    .problem-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .problem-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ---- COMPARISON ---- */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .comparison-card {
+      padding: 2rem;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .comparison-card.highlight {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.03), transparent);
+    }
+    .comparison-card .card-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+    }
+    .comparison-card.highlight .card-label { color: var(--accent); }
+    .comparison-card:not(.highlight) .card-label { color: var(--red); }
+    .comparison-card ul { list-style: none; }
+    .comparison-card ul li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .comparison-card ul li:last-child { border-bottom: none; }
+    .comparison-card ul li .icon { flex-shrink: 0; font-size: 0.8rem; }
+    .comparison-card.highlight ul li .icon { color: var(--accent); }
+    .comparison-card:not(.highlight) ul li .icon { color: var(--red); }
+
+    /* ---- PROCESS ---- */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .step {
+      padding: 2rem 1.5rem;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      position: relative;
+    }
+    .step-number {
+      font-family: var(--mono);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--border);
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+    .step h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .step p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ---- SERVICE SECTION ---- */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .service-card {
+      padding: 2rem;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .service-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .service-card h3 .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ---- QUIZ ---- */
+    .quiz-section {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .quiz-container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .quiz-progress {
+      display: flex;
+      gap: 0.35rem;
+      margin-bottom: 2.5rem;
+    }
+    .quiz-progress .bar {
+      flex: 1;
+      height: 3px;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+    .quiz-progress .bar.active { background: var(--accent); }
+    .quiz-progress .bar.complete { background: var(--accent); }
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; }
+    .quiz-step .step-indicator {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+    }
+    .quiz-step h3 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .quiz-step .quiz-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 0.9rem;
+    }
+    .quiz-option:hover {
+      border-color: var(--border-light);
+      background: var(--bg-elevated);
+    }
+    .quiz-option.selected {
+      border-color: var(--accent);
+      background: rgba(34, 197, 94, 0.05);
+    }
+    .quiz-option .radio {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border-light);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .quiz-option.selected .radio {
+      border-color: var(--accent);
+    }
+    .quiz-option.selected .radio::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .quiz-checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+    }
+    .quiz-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 0.88rem;
+    }
+    .quiz-checkbox:hover {
+      border-color: var(--border-light);
+    }
+    .quiz-checkbox.selected {
+      border-color: var(--accent);
+      background: rgba(34, 197, 94, 0.05);
+    }
+    .quiz-checkbox .check {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border-light);
+      border-radius: 3px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      font-size: 0.7rem;
+    }
+    .quiz-checkbox.selected .check {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .quiz-back {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.65rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .quiz-back:hover { border-color: var(--text-muted); }
+    .quiz-next {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      background: var(--accent);
+      border: none;
+      color: var(--bg);
+      padding: 0.65rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .quiz-next.enabled {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .quiz-next.enabled:hover {
+      background: #2dd468;
+    }
+
+    /* Quiz result */
+    .quiz-result {
+      display: none;
+      text-align: center;
+      padding: 2rem 0;
+    }
+    .quiz-result.active { display: block; }
+    .quiz-result .result-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.1);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.5rem;
+    }
+    .quiz-result h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .quiz-result p {
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 2rem;
+      line-height: 1.65;
+    }
+    .quiz-result .disqualified { display: none; }
+    .quiz-result.disqualified .qualified-msg { display: none; }
+    .quiz-result.disqualified .disqualified { display: block; }
+
+    /* ---- FAQ ---- */
+    .faq-list {
+      max-width: 720px;
+      margin-top: 2.5rem;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 1.25rem 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .faq-question .toggle {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .faq-item.open .toggle { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-answer-inner {
+      padding-bottom: 1.25rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-answer { max-height: 500px; }
+
+    /* ---- FINAL CTA ---- */
+    .final-cta {
+      text-align: center;
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
+      border-top: 1px solid var(--border);
+    }
+    .final-cta h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .final-cta p {
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .footer-brand .logo { margin-bottom: 0.5rem; }
+    .footer-brand p {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      max-width: 320px;
+      line-height: 1.6;
+    }
+    .footer-links {
+      display: flex;
+      gap: 3rem;
+    }
+    .footer-links h4 {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+    .footer-links a {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 0.4rem;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer-disclaimer {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      max-width: 800px;
+    }
+    .footer-copyright {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-top: 1.5rem;
+    }
+
+    /* ---- INLINE CTA BANNER ---- */
+    .inline-cta {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.06), rgba(34, 197, 94, 0.02));
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .inline-cta p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 500px;
+    }
+    .inline-cta p strong { color: var(--text); }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      section { padding: 4rem 1.25rem; }
+      nav { padding: 0.75rem 1.25rem; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .quiz-checkbox-grid { grid-template-columns: 1fr; }
+      .btn-secondary { margin-left: 0; margin-top: 0.75rem; }
+      .hero .btn-wrap { display: flex; flex-direction: column; align-items: flex-start; }
+      .footer-top { flex-direction: column; }
+      .inline-cta { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">ENCLOMIES<span>.</span></div>
+  <a href="#quiz" class="nav-cta">GET EVALUATED</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-content">
+    <div class="hero-tag">PHYSICIAN-GUIDED ENDOCRINE OPTIMIZATION</div>
+    <h1>Your Code Runs 24/7.<br>Your <span class="accent">Hormones</span> Shouldn't Crash.</h1>
+    <p class="hero-desc">
+      A clinician-guided enclomiphene protocol designed to support your body's own testosterone production — oral, non-suppressive, fertility-preserving. Built for men who optimize everything except what matters most.
+    </p>
+    <div class="hero-features">
+      <span class="hero-feature">Oral Administration</span>
+      <span class="hero-feature">Preserves Fertility</span>
+      <span class="hero-feature">No Testicular Atrophy</span>
+      <span class="hero-feature">Endogenous Production</span>
+      <span class="hero-feature">Physician-Supervised</span>
+    </div>
+    <div class="btn-wrap">
+      <a href="#quiz" class="btn-primary">CHECK YOUR ELIGIBILITY</a>
+      <a href="#mechanism" class="btn-secondary">HOW IT WORKS</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-section" id="problem">
+  <div class="container">
+    <div class="section-label">FIG 01. THE MODERN PERFORMANCE PROBLEM</div>
+    <h2 class="section-title">Optimized Stack, Neglected Biology</h2>
+    <p class="section-subtitle">
+      You've tuned every system in your life for performance — except the one running your body. Chronic stress, poor sleep, blue light exposure, and sedentary work are silently degrading your hormonal baseline.
+    </p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">// COGNITIVE</div>
+        <h3>Brain Fog &amp; Focus Decay</h3>
+        <p>Can't hold deep focus like you used to. Tasks that once took an hour now take three. Your cognitive edge is dulling — and caffeine isn't fixing it anymore.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">// ENERGY</div>
+        <h3>Persistent Fatigue</h3>
+        <p>Dragging through afternoons. Needing stimulants to function. The energy you had at 25 has been quietly declining — and no supplement stack is bringing it back.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">// BODY COMP</div>
+        <h3>Stubborn Body Changes</h3>
+        <p>Despite effort in the gym, you're losing muscle and gaining visceral fat. Your body isn't responding to training the way it should — because the signals driving adaptation may be compromised.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">// DRIVE</div>
+        <h3>Declining Motivation &amp; Libido</h3>
+        <p>The ambition that built your career is fading. Lower drive, less initiative, reduced interest in things you used to care about. It's not burnout — it may be biochemistry.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">// RECOVERY</div>
+        <h3>Poor Sleep &amp; Slow Recovery</h3>
+        <p>Waking up unrested. Taking days to recover from workouts. Your body's repair systems may not be running at full capacity — and it shows.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">// MOOD</div>
+        <h3>Irritability &amp; Low Resilience</h3>
+        <p>Shorter fuse. Less patience in meetings. Feeling flat when you should feel engaged. Mood regulation is tightly linked to hormonal health.</p>
+      </div>
+    </div>
+
+    <div class="inline-cta">
+      <p><strong>Sound familiar?</strong> These symptoms are common in men 30-45 and may be related to suboptimal testosterone levels. A simple blood panel can tell you where you stand.</p>
+      <a href="#quiz" class="btn-primary">TAKE THE ASSESSMENT</a>
+    </div>
+  </div>
+</section>
+
+<!-- MECHANISM -->
+<section id="mechanism">
+  <div class="container">
+    <div class="section-label">FIG 02. MECHANISM OF ACTION</div>
+    <h2 class="section-title">Signal, Don't Replace</h2>
+    <p class="section-subtitle">
+      Traditional TRT introduces external testosterone, causing your body to shut down its own production. Enclomiphene works differently — it works with your endocrine system, not against it.
+    </p>
+
+    <div class="comparison-grid">
+      <div class="comparison-card">
+        <div class="card-label">TRADITIONAL TRT — EXOGENOUS / SHUTDOWN</div>
+        <ul>
+          <li><span class="icon">&#10005;</span> Introduces synthetic testosterone externally</li>
+          <li><span class="icon">&#10005;</span> Pituitary detects excess, halts natural production</li>
+          <li><span class="icon">&#10005;</span> May cause testicular atrophy over time</li>
+          <li><span class="icon">&#10005;</span> May significantly impair fertility</li>
+          <li><span class="icon">&#10005;</span> Requires injections or topical application</li>
+          <li><span class="icon">&#10005;</span> Lifelong dependency risk if natural production doesn't recover</li>
+        </ul>
+      </div>
+      <div class="comparison-card highlight">
+        <div class="card-label">ENCLOMIPHENE PROTOCOL — ENDOGENOUS / SIGNAL</div>
+        <ul>
+          <li><span class="icon">&#10003;</span> Selectively blocks estrogen feedback at the pituitary</li>
+          <li><span class="icon">&#10003;</span> Prompts natural LH and FSH release</li>
+          <li><span class="icon">&#10003;</span> Supports the body's own testosterone production</li>
+          <li><span class="icon">&#10003;</span> Designed to preserve fertility and testicular function</li>
+          <li><span class="icon">&#10003;</span> Oral daily capsule — no needles</li>
+          <li><span class="icon">&#10003;</span> Works with your HPG axis, not against it</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="inline-cta">
+      <p><strong>No needles. No shutdown.</strong> Talk to a physician to find out if an enclomiphene protocol may be appropriate for you.</p>
+      <a href="#quiz" class="btn-primary">GET STARTED</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" style="background: var(--bg-elevated); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-label">FIG 03. CLINICAL PATHWAY</div>
+    <h2 class="section-title">From Assessment to Optimization</h2>
+    <p class="section-subtitle">
+      Our process is designed to be thorough, safe, and personalized — because your endocrine system isn't one-size-fits-all.
+    </p>
+
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-number">01</div>
+        <h3>Qualification &amp; Intake</h3>
+        <p>Complete a brief online health assessment, then schedule a telehealth consultation with a licensed physician to review your history, symptoms, and goals.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <h3>Comprehensive Lab Work</h3>
+        <p>Get a full hormonal panel: Total T, Free T, LH, FSH, Estradiol, SHBG, CBC, metabolic markers, and more. We establish your real baseline — not guesswork.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <h3>Personalized Protocol</h3>
+        <p>If clinically appropriate, your physician designs a tailored enclomiphene protocol with dosing specific to your lab values, age, and health profile.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">04</div>
+        <h3>Ongoing Monitoring</h3>
+        <p>Monthly consultations and follow-up lab work to track your response, adjust dosing, and ensure safety. Your physician is with you every step of the way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE DETAILS -->
+<section id="service">
+  <div class="container">
+    <div class="section-label">FIG 04. WHAT'S INCLUDED</div>
+    <h2 class="section-title">Concierge-Level Hormone Care</h2>
+    <p class="section-subtitle">
+      This isn't a prescription mill. It's a comprehensive, physician-led optimization service built for men who take their health as seriously as their work.
+    </p>
+
+    <div class="service-grid">
+      <div class="service-card">
+        <h3><span class="dot"></span>Dedicated Physician</h3>
+        <p>Work one-on-one with a knowledgeable physician experienced in male hormone optimization. Not a chatbot. Not a nurse practitioner relay. A real doctor who knows your case.</p>
+      </div>
+      <div class="service-card">
+        <h3><span class="dot"></span>Monthly Consultations</h3>
+        <p>Regular check-ins to discuss how you're feeling, review lab trends, and make protocol adjustments. We don't prescribe and disappear — we stay engaged in your progress.</p>
+      </div>
+      <div class="service-card">
+        <h3><span class="dot"></span>Comprehensive Lab Panels</h3>
+        <p>Routine bloodwork to monitor your hormonal response, liver function, metabolic markers, and overall health. Data-driven decisions — every step of the way.</p>
+      </div>
+      <div class="service-card">
+        <h3><span class="dot"></span>Personalized Protocol Design</h3>
+        <p>Your dosage and protocol are tailored to your unique physiology. We start conservative, titrate based on labs, and optimize based on how you respond — not population averages.</p>
+      </div>
+      <div class="service-card">
+        <h3><span class="dot"></span>Direct Medication Shipping</h3>
+        <p>Prescribed medication shipped directly to your door through a licensed pharmacy. No clinic visits. No pharmacy lines. Designed for your schedule.</p>
+      </div>
+      <div class="service-card">
+        <h3><span class="dot"></span>Questions Answered, Always</h3>
+        <p>Especially in the early months, you'll have questions. We prioritize responsive communication so you feel confident and informed throughout your protocol.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ / ASSESSMENT -->
+<section class="quiz-section" id="quiz">
+  <div class="container quiz-container">
+    <div class="section-label">ELIGIBILITY ASSESSMENT</div>
+    <h2 class="section-title" style="text-align:center;">See If You Qualify</h2>
+    <p class="section-subtitle" style="text-align:center; margin: 0 auto 2.5rem;">
+      Answer a few quick questions to determine if a physician consultation may be right for you. This is not a diagnostic tool — it helps our team prepare for your evaluation.
+    </p>
+
+    <!-- Progress bars -->
+    <div class="quiz-progress" id="quizProgress">
+      <div class="bar active"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+
+    <!-- STEP 1: Biological Sex -->
+    <div class="quiz-step active" data-step="0">
+      <div class="step-indicator">QUESTION 01 / 07</div>
+      <h3>What is your biological sex?</h3>
+      <p class="quiz-desc">Enclomiphene protocols are designed for biological males.</p>
+      <div class="quiz-options" data-key="sex">
+        <div class="quiz-option" data-value="male" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>Male</span>
+        </div>
+        <div class="quiz-option" data-value="female" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>Female</span>
+        </div>
+      </div>
+      <div class="quiz-nav">
+        <div></div>
+        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Age -->
+    <div class="quiz-step" data-step="1">
+      <div class="step-indicator">QUESTION 02 / 07</div>
+      <h3>How old are you?</h3>
+      <p class="quiz-desc">Age is an important factor in evaluating hormonal health.</p>
+      <div class="quiz-options" data-key="age">
+        <div class="quiz-option" data-value="under-18" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>Under 18</span>
+        </div>
+        <div class="quiz-option" data-value="18-29" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>18 – 29</span>
+        </div>
+        <div class="quiz-option" data-value="30-39" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>30 – 39</span>
+        </div>
+        <div class="quiz-option" data-value="40-54" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>40 – 54</span>
+        </div>
+        <div class="quiz-option" data-value="55+" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>55+</span>
+        </div>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="prevStep()">BACK</button>
+        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Symptoms -->
+    <div class="quiz-step" data-step="2">
+      <div class="step-indicator">QUESTION 03 / 07</div>
+      <h3>Which of these have you experienced?</h3>
+      <p class="quiz-desc">Select all that apply. These symptoms may be associated with suboptimal testosterone levels.</p>
+      <div class="quiz-checkbox-grid" data-key="symptoms">
+        <div class="quiz-checkbox" data-value="fatigue" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Low energy / fatigue</span>
+        </div>
+        <div class="quiz-checkbox" data-value="focus" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Brain fog / poor focus</span>
+        </div>
+        <div class="quiz-checkbox" data-value="libido" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Decreased libido</span>
+        </div>
+        <div class="quiz-checkbox" data-value="muscle" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Muscle loss / difficulty gaining</span>
+        </div>
+        <div class="quiz-checkbox" data-value="fat" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Increased body fat</span>
+        </div>
+        <div class="quiz-checkbox" data-value="mood" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Mood changes / irritability</span>
+        </div>
+        <div class="quiz-checkbox" data-value="sleep" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Poor sleep quality</span>
+        </div>
+        <div class="quiz-checkbox" data-value="recovery" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Slow recovery from exercise</span>
+        </div>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="prevStep()">BACK</button>
+        <button class="quiz-next enabled" onclick="nextStep()">CONTINUE</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Prior Testing -->
+    <div class="quiz-step" data-step="3">
+      <div class="step-indicator">QUESTION 04 / 07</div>
+      <h3>Have you had your testosterone levels tested before?</h3>
+      <p class="quiz-desc">This helps our physicians understand your starting point.</p>
+      <div class="quiz-options" data-key="tested">
+        <div class="quiz-option" data-value="yes-low" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>Yes, and my levels were low or borderline</span>
+        </div>
+        <div class="quiz-option" data-value="yes-normal" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>Yes, and my levels were in the normal range</span>
+        </div>
+        <div class="quiz-option" data-value="no" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>No, I've never been tested</span>
+        </div>
+        <div class="quiz-option" data-value="unsure" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>Not sure / don't remember</span>
+        </div>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="prevStep()">BACK</button>
+        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: Current Treatment -->
+    <div class="quiz-step" data-step="4">
+      <div class="step-indicator">QUESTION 05 / 07</div>
+      <h3>Are you currently using any form of testosterone therapy?</h3>
+      <p class="quiz-desc">This includes injections, gels, patches, pellets, or any prescribed testosterone.</p>
+      <div class="quiz-options" data-key="current_trt">
+        <div class="quiz-option" data-value="no" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>No, I'm not on any testosterone therapy</span>
+        </div>
+        <div class="quiz-option" data-value="yes-want-switch" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>Yes, but I'm interested in switching to an oral option</span>
+        </div>
+        <div class="quiz-option" data-value="yes-satisfied" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>Yes, and I'm generally satisfied with it</span>
+        </div>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="prevStep()">BACK</button>
+        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: Fertility -->
+    <div class="quiz-step" data-step="5">
+      <div class="step-indicator">QUESTION 06 / 07</div>
+      <h3>Is preserving your fertility important to you?</h3>
+      <p class="quiz-desc">Traditional TRT may impair sperm production. Enclomiphene is designed to maintain fertility.</p>
+      <div class="quiz-options" data-key="fertility">
+        <div class="quiz-option" data-value="yes" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>Yes, fertility preservation is a priority</span>
+        </div>
+        <div class="quiz-option" data-value="maybe" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>Maybe — I'd like to keep my options open</span>
+        </div>
+        <div class="quiz-option" data-value="no" onclick="selectOption(this)">
+          <div class="radio"></div>
+          <span>Not a concern for me right now</span>
+        </div>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="prevStep()">BACK</button>
+        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
+      </div>
+    </div>
+
+    <!-- STEP 7: Medical Conditions -->
+    <div class="quiz-step" data-step="6">
+      <div class="step-indicator">QUESTION 07 / 07</div>
+      <h3>Do any of the following apply to you?</h3>
+      <p class="quiz-desc">Select all that apply. Certain conditions may require additional evaluation.</p>
+      <div class="quiz-checkbox-grid" data-key="conditions">
+        <div class="quiz-checkbox" data-value="none" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>None of the below</span>
+        </div>
+        <div class="quiz-checkbox" data-value="liver" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Liver disease or condition</span>
+        </div>
+        <div class="quiz-checkbox" data-value="clotting" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Blood clotting disorder</span>
+        </div>
+        <div class="quiz-checkbox" data-value="cancer" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>History of hormone-sensitive cancer</span>
+        </div>
+        <div class="quiz-checkbox" data-value="pituitary" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Pituitary disorder</span>
+        </div>
+        <div class="quiz-checkbox" data-value="vision" onclick="toggleCheckbox(this)">
+          <div class="check"></div>
+          <span>Unexplained vision changes</span>
+        </div>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="prevStep()">BACK</button>
+        <button class="quiz-next enabled" onclick="finishQuiz()">SEE RESULTS</button>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="quiz-result" id="quizResult">
+      <div class="qualified-msg">
+        <div class="result-icon">&#10003;</div>
+        <h3>You May Be a Candidate</h3>
+        <p>Based on your responses, you may be eligible for a physician consultation to discuss whether an enclomiphene protocol could be appropriate for you. The next step is a brief call with our prescribing physician.</p>
+        <a href="YOUR_CALENDLY_LINK_HERE" target="_blank" class="btn-primary">BOOK YOUR CONSULTATION</a>
+        <p style="font-size:0.75rem; color: var(--text-dim); margin-top: 1.5rem;">This assessment is for informational purposes only and does not constitute a medical diagnosis. A licensed physician will evaluate your eligibility during your consultation.</p>
+      </div>
+      <div class="disqualified">
+        <div class="result-icon" style="border-color: var(--amber); background: rgba(245, 158, 11, 0.1);">!</div>
+        <h3>Additional Evaluation Needed</h3>
+        <p id="disqualifyMessage">Based on your responses, we recommend speaking directly with a healthcare provider about your specific situation. Our team can still help — book a consultation to discuss your options.</p>
+        <a href="YOUR_CALENDLY_LINK_HERE" target="_blank" class="btn-primary">SPEAK WITH A PHYSICIAN</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-label">FIG 05. COMMON QUESTIONS</div>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>What is enclomiphene and how does it differ from traditional TRT?</span>
+          <span class="toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Enclomiphene is a selective estrogen receptor modulator (SERM) that works at the pituitary gland. Unlike traditional testosterone replacement therapy, which introduces external testosterone and may shut down your body's natural production, enclomiphene blocks estrogen feedback at the pituitary. This prompts your body to increase its own LH and FSH production, which in turn signals natural testosterone production. The result is that your body produces its own testosterone rather than relying on external sources. All treatment decisions are made by a licensed physician based on your individual health profile.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Will this affect my fertility?</span>
+          <span class="toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">One of the key advantages of enclomiphene over traditional TRT is its potential to preserve fertility. Traditional testosterone therapy may significantly reduce sperm production because external testosterone signals the brain to reduce LH and FSH — the hormones that drive sperm production. Enclomiphene, by contrast, works by increasing LH and FSH, which may support both testosterone production and spermatogenesis. Your physician will discuss fertility considerations during your consultation.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Do I need to get blood work?</span>
+          <span class="toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes. Lab work is a critical part of the process. Before any protocol begins, we require a comprehensive hormonal panel to establish your baseline levels. This includes Total Testosterone, Free Testosterone, LH, FSH, Estradiol, SHBG, CBC, and metabolic markers. Follow-up labs are conducted regularly to monitor your response and ensure safety. All lab orders are placed by your physician and can be completed at a local lab near you.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>How soon might I notice changes?</span>
+          <span class="toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Individual responses vary. Some patients report subjective improvements in energy and mood within the first few weeks, while measurable changes in testosterone levels are typically assessed via lab work after 4-8 weeks on protocol. Your physician will review your progress at each monthly consultation and adjust your protocol as needed. Results are not guaranteed and depend on individual physiology and adherence to the prescribed protocol.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Is this legal and prescribed by a real doctor?</span>
+          <span class="toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes. Enclomiphene is a prescription medication that must be prescribed by a licensed physician based on clinical evaluation and lab results. Our physicians are board-certified and experienced in male hormone optimization. Every prescription is based on a thorough medical evaluation, including a telehealth consultation and comprehensive blood work. We operate within all applicable medical and pharmaceutical regulations.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>What does the monthly service include?</span>
+          <span class="toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Your service includes: a dedicated physician who manages your case, monthly telehealth consultations to review progress and adjust your protocol, regular comprehensive lab panels, prescribed medication shipped to your door through a licensed pharmacy, and responsive communication for questions between appointments. Our goal is to provide the level of care you'd expect from a private concierge physician — focused entirely on optimizing your hormonal health.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>What are the potential side effects?</span>
+          <span class="toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">As with any medication, enclomiphene may have potential side effects. Commonly reported effects may include headache, visual disturbances, and mood changes. Your physician will discuss all potential risks and benefits during your consultation, review your medical history for any contraindications, and monitor you closely through regular lab work and check-ins. If you experience any concerning symptoms, your physician is available to adjust your protocol promptly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="book">
+  <div class="container">
+    <div class="section-label" style="text-align:center;">READY TO OPTIMIZE?</div>
+    <h2>Stop Guessing. Get Your Levels Checked.</h2>
+    <p>Book a consultation with a physician who understands hormone optimization for high-performing men. No commitments — just a conversation about where you stand and what's possible.</p>
+    <a href="#quiz" class="btn-primary" style="margin-right:0.5rem;">TAKE THE ASSESSMENT</a>
+    <br style="display:none;">
+    <a href="YOUR_CALENDLY_LINK_HERE" target="_blank" class="btn-primary" style="margin-top:1rem; background: transparent; border: 1px solid var(--accent); color: var(--accent);">BOOK DIRECTLY</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">ENCLOMIES<span>.</span></div>
+        <p>Physician-guided endocrine optimization protocols. Personalized. Evidence-informed. Built for men who perform.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h4>Protocol</h4>
+          <a href="#mechanism">How It Works</a>
+          <a href="#process">Clinical Pathway</a>
+          <a href="#service">What's Included</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div>
+          <h4>Get Started</h4>
+          <a href="#quiz">Eligibility Assessment</a>
+          <a href="YOUR_CALENDLY_LINK_HERE" target="_blank">Book Consultation</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-disclaimer">
+        <strong>Important Disclaimer:</strong> The information provided on this website is for informational and educational purposes only and is not intended as a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions you may have regarding a medical condition. Enclomiphene is a prescription medication and is only available through evaluation and prescription by a licensed physician. Individual results may vary. The symptoms described on this page may be caused by a variety of medical conditions and are not necessarily indicative of low testosterone. A proper medical evaluation, including blood work, is required to determine if treatment is appropriate. This website does not guarantee any specific health outcomes. Enclomiphene is prescribed off-label for male testosterone optimization. Off-label prescribing is a legal and common medical practice where a physician prescribes an FDA-approved medication for a use other than its originally approved indication, based on clinical judgment and available evidence. Not all patients will qualify for treatment. Possible side effects and contraindications will be discussed during your medical consultation.
+      </p>
+      <p class="footer-copyright">&copy; 2026 ENCLOMIES. ALL RIGHTS RESERVED.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- QUIZ LOGIC ----
+  let currentStep = 0;
+  const totalSteps = 7;
+  const answers = {};
+
+  function selectOption(el) {
+    const parent = el.closest('.quiz-options');
+    parent.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[parent.dataset.key] = el.dataset.value;
+    // Enable next button
+    el.closest('.quiz-step').querySelector('.quiz-next').classList.add('enabled');
+  }
+
+  function toggleCheckbox(el) {
+    const parent = el.closest('[data-key]');
+    const key = parent.dataset.key;
+
+    // Handle "None of the below" toggle
+    if (el.dataset.value === 'none') {
+      if (el.classList.contains('selected')) {
+        el.classList.remove('selected');
+      } else {
+        parent.querySelectorAll('.quiz-checkbox').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+      }
+    } else {
+      // Deselect "none" if selecting something else
+      const noneEl = parent.querySelector('[data-value="none"]');
+      if (noneEl) noneEl.classList.remove('selected');
+      el.classList.toggle('selected');
+    }
+
+    // Collect selected values
+    const selected = Array.from(parent.querySelectorAll('.quiz-checkbox.selected')).map(c => c.dataset.value);
+    answers[key] = selected;
+  }
+
+  function updateProgress() {
+    const bars = document.querySelectorAll('#quizProgress .bar');
+    bars.forEach((bar, i) => {
+      bar.classList.remove('active', 'complete');
+      if (i < currentStep) bar.classList.add('complete');
+      if (i === currentStep) bar.classList.add('active');
+    });
+  }
+
+  function showStep(step) {
+    document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.quiz-step[data-step="${step}"]`).classList.add('active');
+    currentStep = step;
+    updateProgress();
+  }
+
+  function nextStep() {
+    const nextBtn = document.querySelector(`.quiz-step[data-step="${currentStep}"] .quiz-next`);
+    if (!nextBtn.classList.contains('enabled')) return;
+
+    // Disqualification check: must be male
+    if (currentStep === 0 && answers.sex === 'female') {
+      showResult(true, 'This protocol is designed for biological males. We recommend consulting with your healthcare provider about hormone optimization options appropriate for you.');
+      return;
+    }
+
+    // Disqualification check: must be 18+
+    if (currentStep === 1 && answers.age === 'under-18') {
+      showResult(true, 'This service is only available to individuals 18 years and older. Please consult with your primary care physician.');
+      return;
+    }
+
+    if (currentStep < totalSteps - 1) {
+      showStep(currentStep + 1);
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 0) {
+      showStep(currentStep - 1);
+    }
+  }
+
+  function finishQuiz() {
+    // Check for serious contraindications
+    const conditions = answers.conditions || [];
+    const hasSerious = conditions.some(c => ['cancer', 'pituitary'].includes(c));
+
+    if (hasSerious) {
+      showResult(true, 'Based on your medical history, we recommend discussing your situation directly with a physician. Our team can still help evaluate your options during a consultation.');
+    } else {
+      showResult(false);
+    }
+  }
+
+  function showResult(disqualified, message) {
+    document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+    const result = document.getElementById('quizResult');
+    result.classList.add('active');
+    result.style.display = 'block';
+
+    if (disqualified) {
+      result.classList.add('disqualified');
+      if (message) document.getElementById('disqualifyMessage').textContent = message;
+    } else {
+      result.classList.remove('disqualified');
+    }
+
+    // Complete all progress bars
+    document.querySelectorAll('#quizProgress .bar').forEach(b => b.classList.add('complete'));
+  }
+
+  // ---- FAQ TOGGLE ----
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    // Open clicked if it wasn't open
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // ---- SMOOTH SCROLL ----
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
