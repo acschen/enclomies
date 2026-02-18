@@ -533,7 +533,31 @@
     }
 
     /* ---- MECHANISM / DIAGRAM ---- */
-    .mechanism-section { position: relative; }
+    .mechanism-section { position: relative; overflow: hidden; }
+    .mechanism-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+    .mechanism-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.14;
+      filter: grayscale(0.3);
+    }
+    .mechanism-bg::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(180deg, var(--bg) 0%, transparent 15%, transparent 85%, var(--bg) 100%);
+    }
+    .mechanism-section > .container {
+      position: relative;
+      z-index: 1;
+    }
     .mechanism-section::before {
       content: '';
       position: absolute;
@@ -541,6 +565,7 @@
       width: 500px; height: 500px;
       background: radial-gradient(circle, rgba(34, 197, 94, 0.04) 0%, transparent 70%);
       pointer-events: none;
+      z-index: 1;
     }
 
     /* HPG Axis Diagram */
@@ -620,6 +645,31 @@
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       position: relative;
+      overflow: hidden;
+    }
+    .timeline-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+    .timeline-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.12;
+      filter: grayscale(0.4);
+    }
+    .timeline-bg::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(180deg, var(--bg-elevated) 0%, transparent 15%, transparent 85%, var(--bg-elevated) 100%);
+    }
+    .timeline-section > .container {
+      position: relative;
+      z-index: 1;
     }
     .timeline {
       position: relative;
@@ -1351,9 +1401,12 @@
 
 <!-- MECHANISM -->
 <section class="mechanism-section" id="mechanism">
+  <div class="mechanism-bg">
+    <img src="https://images.unsplash.com/photo-1769226145085-db1f5a66a9c7?auto=format&fit=crop&w=1920&q=80" alt="Father playing with child" loading="lazy"/>
+  </div>
   <div class="container">
     <div class="section-label reveal">FIG 02. MECHANISM OF ACTION</div>
-    <h2 class="section-title reveal">Signal, Don't Replace</h2>
+    <h2 class="section-title reveal">Enclomiphene Signals and Enhances, Not Replaces.</h2>
     <p class="section-subtitle reveal">
       Traditional TRT introduces external testosterone, causing your body to shut down its own production. Enclomiphene works differently — it works with your endocrine system, not against it.
     </p>
@@ -1451,6 +1504,9 @@
 
 <!-- TIMELINE / PROCESS -->
 <section class="timeline-section" id="process">
+  <div class="timeline-bg">
+    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1920&q=80" alt="" loading="lazy"/>
+  </div>
   <div class="container">
     <div class="section-label reveal">FIG 03. CLINICAL PATHWAY</div>
     <h2 class="section-title reveal">From Assessment to Optimization</h2>
