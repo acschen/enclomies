@@ -7,7 +7,7 @@
   <meta name="description" content="Oral, non-suppressive testosterone optimization protocol. No needles. Preserve fertility. Guided by board-certified physicians. Built for men who refuse to compromise.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -24,6 +24,7 @@
       --accent-dim: #16a34a;
       --accent-glow: rgba(34, 197, 94, 0.15);
       --red: #ef4444;
+      --red-dim: rgba(239, 68, 68, 0.1);
       --amber: #f59e0b;
       --mono: 'JetBrains Mono', monospace;
       --sans: 'Inter', -apple-system, sans-serif;
@@ -37,14 +38,41 @@
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
+
+    /* ---- GLOBAL BACKGROUND ---- */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ---- SCROLL ANIMATIONS ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
 
     /* ---- NAV ---- */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
       padding: 1rem 2rem;
       display: flex;
@@ -74,13 +102,10 @@
       transition: all 0.2s;
       cursor: pointer;
     }
-    .nav-cta:hover {
-      background: var(--accent);
-      color: var(--bg);
-    }
+    .nav-cta:hover { background: var(--accent); color: var(--bg); }
 
-    /* ---- SECTIONS ---- */
-    section { padding: 6rem 2rem; }
+    /* ---- LAYOUT ---- */
+    section { padding: 7rem 2rem; position: relative; z-index: 1; }
     .container { max-width: 1100px; margin: 0 auto; }
     .section-label {
       font-family: var(--mono);
@@ -113,16 +138,59 @@
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
+    .hero-bg-video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+    .hero-bg-video img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      animation: kenburns 25s ease-in-out infinite alternate;
+    }
+    .hero-bg-video::after {
       content: '';
       position: absolute;
-      top: -40%;
-      right: -20%;
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-      pointer-events: none;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(10,10,11,0.92) 0%, rgba(10,10,11,0.75) 50%, rgba(10,10,11,0.88) 100%);
     }
+    @keyframes kenburns {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.12) translate(-2%, -1%); }
+    }
+    .hero-bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero-bg-orb.orb1 {
+      top: -10%; right: -5%;
+      width: 600px; height: 600px;
+      background: rgba(34, 197, 94, 0.08);
+      animation: float 20s ease-in-out infinite;
+    }
+    .hero-bg-orb.orb2 {
+      bottom: -20%; left: -10%;
+      width: 500px; height: 500px;
+      background: rgba(34, 197, 94, 0.04);
+      animation: float 25s ease-in-out infinite reverse;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(30px, -20px); }
+      66% { transform: translate(-20px, 15px); }
+    }
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero > .container { position: relative; z-index: 2; }
     .hero-content { position: relative; z-index: 1; }
     .hero-tag {
       display: inline-block;
@@ -136,40 +204,203 @@
       margin-bottom: 2rem;
     }
     .hero h1 {
-      font-size: clamp(2.25rem, 5.5vw, 4rem);
-      font-weight: 700;
-      line-height: 1.1;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
       letter-spacing: -0.03em;
       margin-bottom: 1.5rem;
-      max-width: 700px;
+      white-space: nowrap;
     }
     .hero h1 .accent { color: var(--accent); }
     .hero-desc {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: var(--text-muted);
-      max-width: 560px;
+      max-width: 500px;
       line-height: 1.75;
       margin-bottom: 2.5rem;
     }
     .hero-features {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 3rem;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
     }
     .hero-feature {
       font-family: var(--mono);
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       letter-spacing: 0.05em;
-      padding: 0.4rem 0.75rem;
+      padding: 0.35rem 0.7rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
       color: var(--text-muted);
     }
-    .hero-feature::before {
-      content: '>';
+    .hero-feature::before { content: '>'; color: var(--accent); margin-right: 0.4rem; }
+
+    /* Hero visual — animated molecule */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-visual { width: 100%; max-width: 460px; display: flex; flex-direction: column; gap: 1.25rem; }
+
+    /* Decline chart card */
+    .decline-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .decline-header {
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .decline-header-title {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+    }
+    .decline-header-badge {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      padding: 0.15rem 0.5rem;
+      background: rgba(239,68,68,0.1);
+      color: var(--red);
+      border-radius: 2px;
+      letter-spacing: 0.05em;
+    }
+    .decline-chart {
+      padding: 1.5rem 1.25rem 0.75rem;
+    }
+    .decline-chart svg { width: 100%; height: auto; display: block; }
+    .decline-stat-row {
+      display: flex;
+      border-top: 1px solid var(--border);
+    }
+    .decline-stat {
+      flex: 1;
+      padding: 0.85rem 1.25rem;
+      border-right: 1px solid var(--border);
+    }
+    .decline-stat:last-child { border-right: none; }
+    .decline-stat-label {
+      font-family: var(--mono);
+      font-size: 0.5rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.2rem;
+    }
+    .decline-stat-value {
+      font-family: var(--mono);
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .decline-stat-value.green { color: var(--accent); }
+    .decline-stat-value.red { color: var(--red); }
+    .decline-stat-unit {
+      font-size: 0.55rem;
+      font-weight: 400;
+      color: var(--text-dim);
+    }
+    .decline-footer {
+      padding: 0.6rem 1.25rem;
+      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,0.15);
+    }
+    .decline-footer a {
+      font-family: var(--mono);
+      font-size: 0.5rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .decline-footer a:hover { color: var(--text-muted); }
+
+    /* Product card */
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .product-visual {
+      flex-shrink: 0;
+      width: 100px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .product-visual img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.9) contrast(1.05);
+    }
+    .product-info { flex: 1; }
+    .product-rx {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
       color: var(--accent);
-      margin-right: 0.4rem;
+      margin-bottom: 0.35rem;
+    }
+    .product-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .product-form {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .product-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .product-tag {
+      font-family: var(--mono);
+      font-size: 0.5rem;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.45rem;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      border-radius: 2px;
+    }
+    .product-tag.highlight {
+      border-color: rgba(34,197,94,0.3);
+      color: var(--accent);
+      background: rgba(34,197,94,0.05);
+    }
+    .no-needles-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      padding: 0.6rem 1rem;
+      background: rgba(34, 197, 94, 0.06);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 4px;
+    }
+    .no-needles-badge svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .no-needles-badge span {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      color: var(--accent);
     }
 
     /* ---- CTA BUTTONS ---- */
@@ -190,7 +421,7 @@
     .btn-primary:hover {
       background: #2dd468;
       transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+      box-shadow: 0 4px 24px rgba(34, 197, 94, 0.3);
     }
     .btn-secondary {
       display: inline-block;
@@ -207,57 +438,156 @@
       transition: all 0.2s;
       margin-left: 1rem;
     }
-    .btn-secondary:hover {
-      border-color: var(--text-muted);
+    .btn-secondary:hover { border-color: var(--text-muted); }
+
+    /* ---- SECTION DIVIDER ---- */
+    .section-divider {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
-    /* ---- PROBLEM SECTION ---- */
-    .problem-section { background: var(--bg-elevated); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .problem-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2.5rem;
+    /* ---- PROBLEM / STORY SECTION ---- */
+    .story-section {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
     }
-    .problem-card {
-      padding: 1.75rem;
+    .story-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Narrative intro */
+    .story-intro {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+    .story-intro .big-stat {
+      font-family: var(--mono);
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 800;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .story-intro .big-stat-label {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* Symptom cards with icons */
+    .symptom-flow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .symptom-card {
+      padding: 2rem 1.5rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      transition: border-color 0.2s;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
     }
-    .problem-card:hover { border-color: var(--border-light); }
-    .problem-icon {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--amber);
-      margin-bottom: 1rem;
-      letter-spacing: 0.1em;
+    .symptom-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
-    .problem-card h3 {
+    .symptom-card:hover { border-color: rgba(245, 158, 11, 0.3); transform: translateY(-2px); }
+    .symptom-card:hover::before { opacity: 1; }
+    .symptom-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1.25rem;
+    }
+    .symptom-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+    .symptom-card h3 {
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
     }
-    .problem-card p {
-      font-size: 0.9rem;
+    .symptom-card p {
+      font-size: 0.88rem;
       color: var(--text-muted);
       line-height: 1.6;
     }
 
-    /* ---- COMPARISON ---- */
+    /* ---- MECHANISM / DIAGRAM ---- */
+    .mechanism-section { position: relative; }
+    .mechanism-section::before {
+      content: '';
+      position: absolute;
+      top: 20%; right: 0;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* HPG Axis Diagram */
+    .hpg-diagram {
+      margin: 3rem auto;
+      max-width: 900px;
+    }
+    .hpg-diagram svg {
+      width: 100%;
+      height: auto;
+    }
+    .hpg-node-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .hpg-node-desc {
+      font-family: var(--sans);
+      font-size: 11px;
+      fill: var(--text-muted);
+    }
+
+    /* Comparison below diagram */
     .comparison-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
-      margin-top: 2.5rem;
+      margin-top: 3rem;
     }
     .comparison-card {
       padding: 2rem;
       border: 1px solid var(--border);
       background: var(--bg-card);
+      position: relative;
+      overflow: hidden;
     }
-    .comparison-card.highlight {
-      border-color: var(--accent);
+    .comparison-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .comparison-card.bad::before { background: linear-gradient(90deg, var(--red), transparent); }
+    .comparison-card.good::before { background: linear-gradient(90deg, var(--accent), transparent); }
+    .comparison-card.good {
+      border-color: rgba(34, 197, 94, 0.3);
       background: linear-gradient(135deg, rgba(34, 197, 94, 0.03), transparent);
     }
     .comparison-card .card-label {
@@ -267,8 +597,8 @@
       margin-bottom: 1.25rem;
       text-transform: uppercase;
     }
-    .comparison-card.highlight .card-label { color: var(--accent); }
-    .comparison-card:not(.highlight) .card-label { color: var(--red); }
+    .comparison-card.good .card-label { color: var(--accent); }
+    .comparison-card.bad .card-label { color: var(--red); }
     .comparison-card ul { list-style: none; }
     .comparison-card ul li {
       padding: 0.6rem 0;
@@ -277,43 +607,100 @@
       color: var(--text-muted);
       display: flex;
       align-items: flex-start;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
     .comparison-card ul li:last-child { border-bottom: none; }
     .comparison-card ul li .icon { flex-shrink: 0; font-size: 0.8rem; }
-    .comparison-card.highlight ul li .icon { color: var(--accent); }
-    .comparison-card:not(.highlight) ul li .icon { color: var(--red); }
+    .comparison-card.good ul li .icon { color: var(--accent); }
+    .comparison-card.bad ul li .icon { color: var(--red); }
 
-    /* ---- PROCESS ---- */
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
-    .step {
-      padding: 2rem 1.5rem;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
+    /* ---- TIMELINE / PROCESS ---- */
+    .timeline-section {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
       position: relative;
     }
-    .step-number {
-      font-family: var(--mono);
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--border);
-      margin-bottom: 1rem;
-      line-height: 1;
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 3rem auto 0;
     }
-    .step h3 {
-      font-size: 1rem;
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--border));
+    }
+    .timeline-item {
+      display: flex;
+      gap: 2rem;
+      padding-bottom: 3rem;
+      position: relative;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-marker {
+      flex-shrink: 0;
+      width: 58px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .timeline-dot {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-dot svg {
+      width: 24px;
+      height: 24px;
+    }
+    .timeline-content {
+      padding-top: 0.75rem;
+      flex: 1;
+    }
+    .timeline-step-num {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.35rem;
+    }
+    .timeline-content h3 {
+      font-size: 1.15rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
     }
-    .step p {
-      font-size: 0.88rem;
+    .timeline-content p {
+      font-size: 0.9rem;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.65;
+      max-width: 500px;
+    }
+    .timeline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+    .timeline-tag {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.5rem;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.15);
+      color: var(--accent);
     }
 
     /* ---- SERVICE SECTION ---- */
@@ -327,21 +714,36 @@
       padding: 2rem;
       border: 1px solid var(--border);
       background: var(--bg-card);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
     }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .service-card:hover { transform: translateY(-2px); }
+    .service-card:hover::after { opacity: 1; }
+    .service-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(34, 197, 94, 0.08);
+      border-radius: 8px;
+    }
+    .service-icon svg { width: 20px; height: 20px; }
     .service-card h3 {
       font-size: 1.05rem;
       font-weight: 600;
       margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .service-card h3 .dot {
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      flex-shrink: 0;
     }
     .service-card p {
       font-size: 0.9rem;
@@ -349,16 +751,53 @@
       line-height: 1.65;
     }
 
+    /* ---- INLINE CTA BANNER ---- */
+    .inline-cta {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.06), rgba(34, 197, 94, 0.02));
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .inline-cta::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -20%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.06), transparent);
+      pointer-events: none;
+    }
+    .inline-cta p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      position: relative;
+    }
+    .inline-cta p strong { color: var(--text); }
+
     /* ---- QUIZ ---- */
     .quiz-section {
       background: var(--bg-elevated);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+      position: relative;
     }
-    .quiz-container {
-      max-width: 680px;
-      margin: 0 auto;
+    .quiz-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.03) 0%, transparent 60%);
+      pointer-events: none;
     }
+    .quiz-container { max-width: 680px; margin: 0 auto; position: relative; }
     .quiz-progress {
       display: flex;
       gap: 0.35rem;
@@ -369,11 +808,13 @@
       height: 3px;
       background: var(--border);
       transition: background 0.3s;
+      border-radius: 2px;
     }
-    .quiz-progress .bar.active { background: var(--accent); }
+    .quiz-progress .bar.active { background: var(--accent); box-shadow: 0 0 8px rgba(34, 197, 94, 0.3); }
     .quiz-progress .bar.complete { background: var(--accent); }
     .quiz-step { display: none; }
-    .quiz-step.active { display: block; }
+    .quiz-step.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
     .quiz-step .step-indicator {
       font-family: var(--mono);
       font-size: 0.65rem;
@@ -407,17 +848,10 @@
       transition: all 0.15s;
       font-size: 0.9rem;
     }
-    .quiz-option:hover {
-      border-color: var(--border-light);
-      background: var(--bg-elevated);
-    }
-    .quiz-option.selected {
-      border-color: var(--accent);
-      background: rgba(34, 197, 94, 0.05);
-    }
+    .quiz-option:hover { border-color: var(--border-light); background: var(--bg-elevated); }
+    .quiz-option.selected { border-color: var(--accent); background: rgba(34, 197, 94, 0.05); }
     .quiz-option .radio {
-      width: 18px;
-      height: 18px;
+      width: 18px; height: 18px;
       border: 2px solid var(--border-light);
       border-radius: 50%;
       flex-shrink: 0;
@@ -426,13 +860,10 @@
       justify-content: center;
       transition: all 0.15s;
     }
-    .quiz-option.selected .radio {
-      border-color: var(--accent);
-    }
+    .quiz-option.selected .radio { border-color: var(--accent); }
     .quiz-option.selected .radio::after {
       content: '';
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       background: var(--accent);
       border-radius: 50%;
     }
@@ -452,16 +883,10 @@
       transition: all 0.15s;
       font-size: 0.88rem;
     }
-    .quiz-checkbox:hover {
-      border-color: var(--border-light);
-    }
-    .quiz-checkbox.selected {
-      border-color: var(--accent);
-      background: rgba(34, 197, 94, 0.05);
-    }
+    .quiz-checkbox:hover { border-color: var(--border-light); }
+    .quiz-checkbox.selected { border-color: var(--accent); background: rgba(34, 197, 94, 0.05); }
     .quiz-checkbox .check {
-      width: 18px;
-      height: 18px;
+      width: 18px; height: 18px;
       border: 2px solid var(--border-light);
       border-radius: 3px;
       flex-shrink: 0;
@@ -506,24 +931,17 @@
       opacity: 0.4;
       pointer-events: none;
     }
-    .quiz-next.enabled {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .quiz-next.enabled:hover {
-      background: #2dd468;
-    }
+    .quiz-next.enabled { opacity: 1; pointer-events: auto; }
+    .quiz-next.enabled:hover { background: #2dd468; }
 
-    /* Quiz result */
     .quiz-result {
       display: none;
       text-align: center;
       padding: 2rem 0;
     }
-    .quiz-result.active { display: block; }
+    .quiz-result.active { display: block; animation: fadeIn 0.5s ease; }
     .quiz-result .result-icon {
-      width: 64px;
-      height: 64px;
+      width: 72px; height: 72px;
       border-radius: 50%;
       background: rgba(34, 197, 94, 0.1);
       border: 2px solid var(--accent);
@@ -532,30 +950,17 @@
       justify-content: center;
       margin: 0 auto 1.5rem;
       font-size: 1.5rem;
+      box-shadow: 0 0 30px rgba(34, 197, 94, 0.15);
     }
-    .quiz-result h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-    }
-    .quiz-result p {
-      color: var(--text-muted);
-      max-width: 480px;
-      margin: 0 auto 2rem;
-      line-height: 1.65;
-    }
+    .quiz-result h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .quiz-result p { color: var(--text-muted); max-width: 480px; margin: 0 auto 2rem; line-height: 1.65; }
     .quiz-result .disqualified { display: none; }
     .quiz-result.disqualified .qualified-msg { display: none; }
     .quiz-result.disqualified .disqualified { display: block; }
 
     /* ---- FAQ ---- */
-    .faq-list {
-      max-width: 720px;
-      margin-top: 2.5rem;
-    }
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-    }
+    .faq-list { max-width: 720px; margin-top: 2.5rem; }
+    .faq-item { border-bottom: 1px solid var(--border); }
     .faq-question {
       width: 100%;
       text-align: left;
@@ -580,11 +985,7 @@
       flex-shrink: 0;
     }
     .faq-item.open .toggle { transform: rotate(45deg); }
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
     .faq-answer-inner {
       padding-bottom: 1.25rem;
       font-size: 0.9rem;
@@ -596,21 +997,32 @@
     /* ---- FINAL CTA ---- */
     .final-cta {
       text-align: center;
-      padding: 6rem 2rem;
-      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
-      border-top: 1px solid var(--border);
+      padding: 8rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.06) 0%, transparent 60%);
+      pointer-events: none;
     }
     .final-cta h2 {
       font-size: clamp(1.75rem, 4vw, 2.5rem);
       font-weight: 700;
       margin-bottom: 1rem;
       letter-spacing: -0.02em;
+      position: relative;
     }
     .final-cta p {
       color: var(--text-muted);
       max-width: 520px;
       margin: 0 auto 2.5rem;
       line-height: 1.7;
+      position: relative;
     }
 
     /* ---- FOOTER ---- */
@@ -618,6 +1030,8 @@
       padding: 3rem 2rem;
       border-top: 1px solid var(--border);
       background: var(--bg);
+      position: relative;
+      z-index: 1;
     }
     .footer-top {
       display: flex;
@@ -634,10 +1048,7 @@
       max-width: 320px;
       line-height: 1.6;
     }
-    .footer-links {
-      display: flex;
-      gap: 3rem;
-    }
+    .footer-links { display: flex; gap: 3rem; }
     .footer-links h4 {
       font-family: var(--mono);
       font-size: 0.6rem;
@@ -655,10 +1066,7 @@
       transition: color 0.15s;
     }
     .footer-links a:hover { color: var(--text); }
-    .footer-bottom {
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-    }
+    .footer-bottom { padding-top: 2rem; border-top: 1px solid var(--border); }
     .footer-disclaimer {
       font-size: 0.72rem;
       color: var(--text-dim);
@@ -673,35 +1081,30 @@
       margin-top: 1.5rem;
     }
 
-    /* ---- INLINE CTA BANNER ---- */
-    .inline-cta {
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.06), rgba(34, 197, 94, 0.02));
-      border: 1px solid rgba(34, 197, 94, 0.2);
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      margin-top: 3rem;
-      flex-wrap: wrap;
-    }
-    .inline-cta p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      max-width: 500px;
-    }
-    .inline-cta p strong { color: var(--text); }
-
     /* ---- RESPONSIVE ---- */
+    @media (max-width: 900px) {
+      .hero-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-visual { display: none; }
+      .no-needles-badge { width: fit-content; }
+      .hero h1 { white-space: normal; font-size: clamp(1.6rem, 6vw, 2.5rem); }
+    }
     @media (max-width: 768px) {
-      section { padding: 4rem 1.25rem; }
+      section { padding: 5rem 1.25rem; }
       nav { padding: 0.75rem 1.25rem; }
       .comparison-grid { grid-template-columns: 1fr; }
+      .symptom-flow { grid-template-columns: 1fr 1fr; }
       .quiz-checkbox-grid { grid-template-columns: 1fr; }
       .btn-secondary { margin-left: 0; margin-top: 0.75rem; }
       .hero .btn-wrap { display: flex; flex-direction: column; align-items: flex-start; }
       .footer-top { flex-direction: column; }
       .inline-cta { flex-direction: column; text-align: center; }
+      .timeline::before { left: 20px; }
+      .timeline-dot { width: 42px; height: 42px; }
+      .timeline-marker { width: 42px; }
+      .timeline-dot svg { width: 18px; height: 18px; }
+    }
+    @media (max-width: 480px) {
+      .symptom-flow { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -715,85 +1118,305 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="container hero-content">
-    <div class="hero-tag">PHYSICIAN-GUIDED ENDOCRINE OPTIMIZATION</div>
-    <h1>Your Code Runs 24/7.<br>Your <span class="accent">Hormones</span> Shouldn't Crash.</h1>
-    <p class="hero-desc">
-      A clinician-guided enclomiphene protocol designed to support your body's own testosterone production — oral, non-suppressive, fertility-preserving. Built for men who optimize everything except what matters most.
-    </p>
-    <div class="hero-features">
-      <span class="hero-feature">Oral Administration</span>
-      <span class="hero-feature">Preserves Fertility</span>
-      <span class="hero-feature">No Testicular Atrophy</span>
-      <span class="hero-feature">Endogenous Production</span>
-      <span class="hero-feature">Physician-Supervised</span>
-    </div>
-    <div class="btn-wrap">
-      <a href="#quiz" class="btn-primary">CHECK YOUR ELIGIBILITY</a>
-      <a href="#mechanism" class="btn-secondary">HOW IT WORKS</a>
+  <div class="hero-bg-video">
+    <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1920&q=80" alt="" loading="eager"/>
+  </div>
+  <div class="hero-bg-orb orb1"></div>
+  <div class="hero-bg-orb orb2"></div>
+  <div class="container">
+    <div class="hero-layout">
+      <div class="hero-content">
+        <div class="hero-tag reveal">PHYSICIAN-GUIDED ENDOCRINE OPTIMIZATION</div>
+        <h1 class="reveal reveal-delay-1">Your Code Runs 24/7.<br>Your <span class="accent">Hormones</span> Shouldn't Crash.</h1>
+        <p class="hero-desc reveal reveal-delay-2">
+          A clinician-guided enclomiphene protocol designed to support your body's own testosterone production — oral, non-suppressive, fertility-preserving. Built for men who optimize everything except what matters most.
+        </p>
+        <div class="hero-features reveal reveal-delay-3">
+          <span class="hero-feature">No Needles — Oral Daily Capsule</span>
+          <span class="hero-feature">Preserves Fertility</span>
+          <span class="hero-feature">No Testicular Atrophy</span>
+          <span class="hero-feature">Your Body's Own Production</span>
+          <span class="hero-feature">Physician-Supervised</span>
+        </div>
+        <div class="no-needles-badge reveal reveal-delay-3">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Zero injections. Just one oral capsule per day.</span>
+        </div>
+        <div class="btn-wrap reveal reveal-delay-4" style="margin-top: 1.5rem;">
+          <a href="#quiz" class="btn-primary">CHECK YOUR ELIGIBILITY</a>
+          <a href="#mechanism" class="btn-secondary">HOW IT WORKS</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal reveal-delay-3">
+        <!-- Population decline chart -->
+        <div class="decline-card">
+          <div class="decline-header">
+            <span class="decline-header-title">POPULATION TESTOSTERONE LEVELS</span>
+            <span class="decline-header-badge">DECLINING</span>
+          </div>
+          <div class="decline-chart">
+            <svg viewBox="0 0 380 160" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid lines -->
+              <line x1="40" y1="15" x2="370" y2="15" stroke="#222228" stroke-width="0.5"/>
+              <line x1="40" y1="45" x2="370" y2="45" stroke="#222228" stroke-width="0.5"/>
+              <line x1="40" y1="75" x2="370" y2="75" stroke="#222228" stroke-width="0.5"/>
+              <line x1="40" y1="105" x2="370" y2="105" stroke="#222228" stroke-width="0.5"/>
+              <line x1="40" y1="135" x2="370" y2="135" stroke="#222228" stroke-width="0.5"/>
+
+              <!-- Y-axis labels -->
+              <text x="35" y="18" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="8" fill="#5a5a6a">700</text>
+              <text x="35" y="48" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="8" fill="#5a5a6a">600</text>
+              <text x="35" y="78" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="8" fill="#5a5a6a">500</text>
+              <text x="35" y="108" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="8" fill="#5a5a6a">400</text>
+              <text x="35" y="138" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="8" fill="#5a5a6a">300</text>
+
+              <!-- ng/dL label -->
+              <text x="4" y="78" text-anchor="start" font-family="'JetBrains Mono',monospace" font-size="7" fill="#3a3a4a" transform="rotate(-90 10 78)">ng/dL</text>
+
+              <!-- Gradient fill under curve -->
+              <defs>
+                <linearGradient id="declineGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#ef4444" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M55,20 C100,22 140,30 175,48 C210,65 245,82 280,98 C315,112 345,122 365,128 L365,135 L55,135 Z" fill="url(#declineGrad)"/>
+
+              <!-- Decline line -->
+              <path d="M55,20 C100,22 140,30 175,48 C210,65 245,82 280,98 C315,112 345,122 365,128" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+
+              <!-- Data points -->
+              <circle cx="55" cy="20" r="4" fill="#0a0a0b" stroke="#22c55e" stroke-width="2"/>
+              <circle cx="175" cy="48" r="3.5" fill="#0a0a0b" stroke="#f59e0b" stroke-width="2"/>
+              <circle cx="280" cy="98" r="3.5" fill="#0a0a0b" stroke="#ef4444" stroke-width="2"/>
+              <circle cx="365" cy="128" r="4" fill="#0a0a0b" stroke="#ef4444" stroke-width="2.5"/>
+
+              <!-- Point labels -->
+              <text x="55" y="12" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#22c55e" font-weight="600">~680</text>
+              <text x="175" y="42" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#f59e0b">~570</text>
+              <text x="280" y="92" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#ef4444">~440</text>
+              <text x="365" y="122" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#ef4444" font-weight="600">~350</text>
+
+              <!-- X-axis labels -->
+              <text x="55" y="150" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#5a5a6a">1970s</text>
+              <text x="145" y="150" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#5a5a6a">1990</text>
+              <text x="235" y="150" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#5a5a6a">2005</text>
+              <text x="330" y="150" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#5a5a6a">2020s</text>
+
+              <!-- Annotation arrow -->
+              <line x1="200" y1="110" x2="200" y2="55" stroke="#ef4444" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
+              <text x="200" y="123" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#ef4444" opacity="0.7">~50% DECLINE</text>
+            </svg>
+          </div>
+          <div class="decline-stat-row">
+            <div class="decline-stat">
+              <div class="decline-stat-label">1970s AVG</div>
+              <span class="decline-stat-value green">~680 <span class="decline-stat-unit">ng/dL</span></span>
+            </div>
+            <div class="decline-stat">
+              <div class="decline-stat-label">TODAY AVG</div>
+              <span class="decline-stat-value red">~350 <span class="decline-stat-unit">ng/dL</span></span>
+            </div>
+            <div class="decline-stat">
+              <div class="decline-stat-label">DECLINE</div>
+              <span class="decline-stat-value red">~50%</span>
+            </div>
+          </div>
+          <div class="decline-footer">
+            <a href="https://pubmed.ncbi.nlm.nih.gov/17062768/" target="_blank" rel="noopener">SOURCE: Travison et al. J Clin Endocrinol Metab. 2007;92(1):196-202</a>
+          </div>
+        </div>
+
+        <!-- Product card -->
+        <div class="product-card">
+          <div class="product-visual">
+            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" alt="Prescription medication" loading="lazy"/>
+          </div>
+          <div class="product-info">
+            <div class="product-rx">PRESCRIPTION MEDICATION</div>
+            <div class="product-name">Enclomiphene Citrate</div>
+            <div class="product-form">Oral Capsule — No Injections Required</div>
+            <div class="product-tags">
+              <span class="product-tag highlight">NO NEEDLES</span>
+              <span class="product-tag highlight">ORAL DAILY</span>
+              <span class="product-tag">RX ONLY</span>
+              <span class="product-tag">SHIPPED TO YOU</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PROBLEM -->
-<section class="problem-section" id="problem">
+<div class="section-divider"></div>
+
+<!-- SYMPTOMS / STORY -->
+<section class="story-section" id="problem">
   <div class="container">
-    <div class="section-label">FIG 01. THE MODERN PERFORMANCE PROBLEM</div>
-    <h2 class="section-title">Optimized Stack, Neglected Biology</h2>
-    <p class="section-subtitle">
-      You've tuned every system in your life for performance — except the one running your body. Chronic stress, poor sleep, blue light exposure, and sedentary work are silently degrading your hormonal baseline.
-    </p>
-    <div class="problem-grid">
-      <div class="problem-card">
-        <div class="problem-icon">// COGNITIVE</div>
+    <div class="story-intro reveal">
+      <div class="section-label" style="text-align:center;">FIG 01. THE MODERN PERFORMANCE PROBLEM</div>
+      <div class="big-stat">1 in 4</div>
+      <div class="big-stat-label">men over 30 may have testosterone levels below the optimal range</div>
+      <h2 class="section-title" style="text-align:center;">Optimized Stack, Neglected Biology</h2>
+      <p class="section-subtitle" style="text-align:center; margin: 0 auto;">
+        You've tuned every system in your life for performance — except the one running your body. Chronic stress, poor sleep, blue light exposure, and sedentary work are silently degrading your hormonal baseline.
+      </p>
+    </div>
+
+    <div class="symptom-flow">
+      <div class="symptom-card reveal">
+        <div class="symptom-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="16" r="10" stroke="#f59e0b" stroke-width="1.5" fill="none"/>
+            <path d="M18 18h12M20 14l4 4 4-4" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M16 32c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+            <line x1="24" y1="36" x2="24" y2="44" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="2 3" opacity="0.3"/>
+          </svg>
+        </div>
         <h3>Brain Fog &amp; Focus Decay</h3>
-        <p>Can't hold deep focus like you used to. Tasks that once took an hour now take three. Your cognitive edge is dulling — and caffeine isn't fixing it anymore.</p>
+        <p>Can't hold deep focus like you used to. Tasks that once took an hour now take three. Your cognitive edge is dulling.</p>
       </div>
-      <div class="problem-card">
-        <div class="problem-icon">// ENERGY</div>
+      <div class="symptom-card reveal reveal-delay-1">
+        <div class="symptom-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="30" width="4" height="10" rx="1" fill="#f59e0b" opacity="0.3"/>
+            <rect x="18" y="24" width="4" height="16" rx="1" fill="#f59e0b" opacity="0.4"/>
+            <rect x="26" y="18" width="4" height="22" rx="1" fill="#f59e0b" opacity="0.5"/>
+            <rect x="34" y="12" width="4" height="28" rx="1" fill="#f59e0b" opacity="0.2"/>
+            <path d="M8 28 L40 14" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.5"/>
+          </svg>
+        </div>
         <h3>Persistent Fatigue</h3>
-        <p>Dragging through afternoons. Needing stimulants to function. The energy you had at 25 has been quietly declining — and no supplement stack is bringing it back.</p>
+        <p>Dragging through afternoons. Needing stimulants to function. The energy you had at 25 has been quietly declining.</p>
       </div>
-      <div class="problem-card">
-        <div class="problem-icon">// BODY COMP</div>
+      <div class="symptom-card reveal reveal-delay-2">
+        <div class="symptom-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="14" stroke="#f59e0b" stroke-width="1.5" fill="none" opacity="0.3"/>
+            <path d="M24 14v10l6 6" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M32 8l-2 4M38 14l-4 2M40 24h-4" stroke="#f59e0b" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+          </svg>
+        </div>
         <h3>Stubborn Body Changes</h3>
-        <p>Despite effort in the gym, you're losing muscle and gaining visceral fat. Your body isn't responding to training the way it should — because the signals driving adaptation may be compromised.</p>
+        <p>Despite effort in the gym, you're losing muscle and gaining visceral fat. Your body isn't responding to training like it should.</p>
       </div>
-      <div class="problem-card">
-        <div class="problem-icon">// DRIVE</div>
+      <div class="symptom-card reveal">
+        <div class="symptom-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 38l-10-10c-3-3-3-8 0-11s8-3 11 0c3-3 8-3 11 0s3 8 0 11L24 38z" stroke="#f59e0b" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <path d="M24 22v8M24 34v2" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
         <h3>Declining Motivation &amp; Libido</h3>
-        <p>The ambition that built your career is fading. Lower drive, less initiative, reduced interest in things you used to care about. It's not burnout — it may be biochemistry.</p>
+        <p>The ambition that built your career is fading. Lower drive, less initiative. It's not burnout — it may be biochemistry.</p>
       </div>
-      <div class="problem-card">
-        <div class="problem-icon">// RECOVERY</div>
-        <h3>Poor Sleep &amp; Slow Recovery</h3>
-        <p>Waking up unrested. Taking days to recover from workouts. Your body's repair systems may not be running at full capacity — and it shows.</p>
+      <div class="symptom-card reveal reveal-delay-1">
+        <div class="symptom-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 36c0-6 4-10 12-10s12 4 12 10" stroke="#f59e0b" stroke-width="1.5" fill="none" opacity="0.3"/>
+            <circle cx="24" cy="18" r="6" stroke="#f59e0b" stroke-width="1.5" fill="none"/>
+            <path d="M20 18c0-2.2 1.8-4 4-4" stroke="#f59e0b" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+            <line x1="6" y1="24" x2="10" y2="24" stroke="#f59e0b" stroke-width="1.5" opacity="0.3"/>
+            <line x1="38" y1="24" x2="42" y2="24" stroke="#f59e0b" stroke-width="1.5" opacity="0.3"/>
+          </svg>
+        </div>
+        <h3>Poor Sleep &amp; Recovery</h3>
+        <p>Waking up unrested. Taking days to recover from workouts. Your body's repair systems may not be at full capacity.</p>
       </div>
-      <div class="problem-card">
-        <div class="problem-icon">// MOOD</div>
+      <div class="symptom-card reveal reveal-delay-2">
+        <div class="symptom-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 32 Q16 16 24 24 Q32 32 38 16" stroke="#f59e0b" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <circle cx="10" cy="32" r="3" fill="#f59e0b" opacity="0.3"/>
+            <circle cx="38" cy="16" r="3" fill="#f59e0b" opacity="0.3"/>
+            <line x1="6" y1="40" x2="42" y2="40" stroke="#f59e0b" stroke-width="1" opacity="0.2"/>
+          </svg>
+        </div>
         <h3>Irritability &amp; Low Resilience</h3>
-        <p>Shorter fuse. Less patience in meetings. Feeling flat when you should feel engaged. Mood regulation is tightly linked to hormonal health.</p>
+        <p>Shorter fuse. Less patience in meetings. Feeling flat when you should feel engaged. Mood is tightly linked to hormones.</p>
       </div>
     </div>
 
-    <div class="inline-cta">
+    <div class="inline-cta reveal">
       <p><strong>Sound familiar?</strong> These symptoms are common in men 30-45 and may be related to suboptimal testosterone levels. A simple blood panel can tell you where you stand.</p>
       <a href="#quiz" class="btn-primary">TAKE THE ASSESSMENT</a>
     </div>
   </div>
 </section>
 
+<div class="section-divider"></div>
+
 <!-- MECHANISM -->
-<section id="mechanism">
+<section class="mechanism-section" id="mechanism">
   <div class="container">
-    <div class="section-label">FIG 02. MECHANISM OF ACTION</div>
-    <h2 class="section-title">Signal, Don't Replace</h2>
-    <p class="section-subtitle">
+    <div class="section-label reveal">FIG 02. MECHANISM OF ACTION</div>
+    <h2 class="section-title reveal">Signal, Don't Replace</h2>
+    <p class="section-subtitle reveal">
       Traditional TRT introduces external testosterone, causing your body to shut down its own production. Enclomiphene works differently — it works with your endocrine system, not against it.
     </p>
 
+    <!-- HPG Axis Diagram -->
+    <div class="hpg-diagram reveal">
+      <svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background -->
+        <rect x="0" y="0" width="900" height="320" fill="none"/>
+
+        <!-- Title -->
+        <text x="450" y="30" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#5a5a6a" letter-spacing="0.15em">HPG AXIS — ENCLOMIPHENE SIGNALING PATHWAY</text>
+
+        <!-- Hypothalamus -->
+        <rect x="50" y="60" width="180" height="80" rx="4" fill="#161619" stroke="#2a2a32" stroke-width="1"/>
+        <text x="140" y="85" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#22c55e" letter-spacing="0.1em">HYPOTHALAMUS</text>
+        <text x="140" y="105" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" fill="#8a8a9a">Releases GnRH</text>
+        <text x="140" y="125" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#5a5a6a">master signal center</text>
+
+        <!-- Arrow 1 -->
+        <line x1="230" y1="100" x2="310" y2="100" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="6 4"/>
+        <polygon points="310,95 320,100 310,105" fill="#22c55e"/>
+        <text x="270" y="92" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#22c55e">GnRH</text>
+
+        <!-- Pituitary -->
+        <rect x="320" y="60" width="180" height="80" rx="4" fill="#161619" stroke="#22c55e" stroke-width="1.5"/>
+        <text x="410" y="85" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#22c55e" letter-spacing="0.1em">PITUITARY</text>
+        <text x="410" y="105" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" fill="#8a8a9a">Releases LH + FSH</text>
+        <text x="410" y="125" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#22c55e">enclomiphene acts here</text>
+
+        <!-- Arrow 2 -->
+        <line x1="500" y1="100" x2="580" y2="100" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="6 4"/>
+        <polygon points="580,95 590,100 580,105" fill="#22c55e"/>
+        <text x="540" y="92" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#22c55e">LH / FSH</text>
+
+        <!-- Testes -->
+        <rect x="590" y="60" width="180" height="80" rx="4" fill="#161619" stroke="#2a2a32" stroke-width="1"/>
+        <text x="680" y="85" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#22c55e" letter-spacing="0.1em">TESTES</text>
+        <text x="680" y="105" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" fill="#8a8a9a">Produce testosterone</text>
+        <text x="680" y="125" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#5a5a6a">natural production</text>
+
+        <!-- Enclomiphene callout -->
+        <rect x="310" y="170" width="200" height="60" rx="4" fill="rgba(34,197,94,0.06)" stroke="rgba(34,197,94,0.3)" stroke-width="1"/>
+        <text x="410" y="195" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#22c55e" letter-spacing="0.1em">ENCLOMIPHENE</text>
+        <text x="410" y="215" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#8a8a9a">Blocks estrogen feedback</text>
+        <line x1="410" y1="140" x2="410" y2="170" stroke="rgba(34,197,94,0.4)" stroke-width="1" stroke-dasharray="4 3"/>
+
+        <!-- Feedback loop arrow -->
+        <path d="M680,140 L680,280 L140,280 L140,140" fill="none" stroke="#ef4444" stroke-width="1" stroke-dasharray="6 4" opacity="0.4"/>
+        <polygon points="135,145 140,135 145,145" fill="#ef4444" opacity="0.4"/>
+        <text x="410" y="275" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#ef4444" opacity="0.6">ESTROGEN NEGATIVE FEEDBACK (BLOCKED BY ENCLOMIPHENE)</text>
+
+        <!-- Result arrow -->
+        <line x1="770" y1="100" x2="840" y2="100" stroke="#22c55e" stroke-width="1.5"/>
+        <polygon points="840,95 850,100 840,105" fill="#22c55e"/>
+        <rect x="855" y="78" width="40" height="44" rx="4" fill="rgba(34,197,94,0.1)" stroke="rgba(34,197,94,0.3)" stroke-width="1"/>
+        <text x="875" y="96" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#22c55e">T</text>
+        <text x="875" y="112" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="14" fill="#22c55e" font-weight="700">&#x2191;</text>
+      </svg>
+    </div>
+
     <div class="comparison-grid">
-      <div class="comparison-card">
+      <div class="comparison-card bad reveal">
         <div class="card-label">TRADITIONAL TRT — EXOGENOUS / SHUTDOWN</div>
         <ul>
           <li><span class="icon">&#10005;</span> Introduces synthetic testosterone externally</li>
@@ -801,11 +1424,11 @@
           <li><span class="icon">&#10005;</span> May cause testicular atrophy over time</li>
           <li><span class="icon">&#10005;</span> May significantly impair fertility</li>
           <li><span class="icon">&#10005;</span> Requires injections or topical application</li>
-          <li><span class="icon">&#10005;</span> Lifelong dependency risk if natural production doesn't recover</li>
+          <li><span class="icon">&#10005;</span> Lifelong dependency risk</li>
         </ul>
       </div>
-      <div class="comparison-card highlight">
-        <div class="card-label">ENCLOMIPHENE PROTOCOL — ENDOGENOUS / SIGNAL</div>
+      <div class="comparison-card good reveal reveal-delay-1">
+        <div class="card-label">ENCLOMIPHENE — ENDOGENOUS / SIGNAL</div>
         <ul>
           <li><span class="icon">&#10003;</span> Selectively blocks estrogen feedback at the pituitary</li>
           <li><span class="icon">&#10003;</span> Prompts natural LH and FSH release</li>
@@ -817,95 +1440,193 @@
       </div>
     </div>
 
-    <div class="inline-cta">
+    <div class="inline-cta reveal">
       <p><strong>No needles. No shutdown.</strong> Talk to a physician to find out if an enclomiphene protocol may be appropriate for you.</p>
       <a href="#quiz" class="btn-primary">GET STARTED</a>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section id="process" style="background: var(--bg-elevated); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+<div class="section-divider"></div>
+
+<!-- TIMELINE / PROCESS -->
+<section class="timeline-section" id="process">
   <div class="container">
-    <div class="section-label">FIG 03. CLINICAL PATHWAY</div>
-    <h2 class="section-title">From Assessment to Optimization</h2>
-    <p class="section-subtitle">
+    <div class="section-label reveal">FIG 03. CLINICAL PATHWAY</div>
+    <h2 class="section-title reveal">From Assessment to Optimization</h2>
+    <p class="section-subtitle reveal">
       Our process is designed to be thorough, safe, and personalized — because your endocrine system isn't one-size-fits-all.
     </p>
 
-    <div class="process-steps">
-      <div class="step">
-        <div class="step-number">01</div>
-        <h3>Qualification &amp; Intake</h3>
-        <p>Complete a brief online health assessment, then schedule a telehealth consultation with a licensed physician to review your history, symptoms, and goals.</p>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-marker">
+          <div class="timeline-dot">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M9 14l2 2 4-4" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-step-num">STEP 01</div>
+          <h3>Qualification &amp; Intake</h3>
+          <p>Complete a brief online health assessment, then schedule a telehealth consultation with a licensed physician to review your history, symptoms, and goals.</p>
+          <div class="timeline-tags">
+            <span class="timeline-tag">5-min quiz</span>
+            <span class="timeline-tag">telehealth</span>
+            <span class="timeline-tag">no travel</span>
+          </div>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-number">02</div>
-        <h3>Comprehensive Lab Work</h3>
-        <p>Get a full hormonal panel: Total T, Free T, LH, FSH, Estradiol, SHBG, CBC, metabolic markers, and more. We establish your real baseline — not guesswork.</p>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-marker">
+          <div class="timeline-dot">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="13" cy="15" r="2" stroke="#22c55e" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-step-num">STEP 02</div>
+          <h3>Comprehensive Lab Work</h3>
+          <p>Get a full hormonal panel: Total T, Free T, LH, FSH, Estradiol, SHBG, CBC, metabolic markers, and more. We establish your real baseline — not guesswork.</p>
+          <div class="timeline-tags">
+            <span class="timeline-tag">local lab</span>
+            <span class="timeline-tag">full panel</span>
+            <span class="timeline-tag">data-driven</span>
+          </div>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-number">03</div>
-        <h3>Personalized Protocol</h3>
-        <p>If clinically appropriate, your physician designs a tailored enclomiphene protocol with dosing specific to your lab values, age, and health profile.</p>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-marker">
+          <div class="timeline-dot">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M5 14.5l3.5 6.5h7L19 14.5" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-step-num">STEP 03</div>
+          <h3>Personalized Protocol</h3>
+          <p>If clinically appropriate, your physician designs a tailored enclomiphene protocol with dosing specific to your lab values, age, and health profile.</p>
+          <div class="timeline-tags">
+            <span class="timeline-tag">oral capsule</span>
+            <span class="timeline-tag">custom dose</span>
+            <span class="timeline-tag">shipped to you</span>
+          </div>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-number">04</div>
-        <h3>Ongoing Monitoring</h3>
-        <p>Monthly consultations and follow-up lab work to track your response, adjust dosing, and ensure safety. Your physician is with you every step of the way.</p>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-marker">
+          <div class="timeline-dot">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75z" stroke="#22c55e" stroke-width="1.5"/>
+              <path d="M9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625z" stroke="#22c55e" stroke-width="1.5"/>
+              <path d="M16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" stroke="#22c55e" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-step-num">STEP 04</div>
+          <h3>Ongoing Monitoring</h3>
+          <p>Monthly consultations and follow-up lab work to track your response, adjust dosing, and ensure safety. Your physician is with you every step of the way.</p>
+          <div class="timeline-tags">
+            <span class="timeline-tag">monthly check-ins</span>
+            <span class="timeline-tag">lab tracking</span>
+            <span class="timeline-tag">dose refinement</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<div class="section-divider"></div>
 
 <!-- SERVICE DETAILS -->
 <section id="service">
   <div class="container">
-    <div class="section-label">FIG 04. WHAT'S INCLUDED</div>
-    <h2 class="section-title">Concierge-Level Hormone Care</h2>
-    <p class="section-subtitle">
+    <div class="section-label reveal">FIG 04. WHAT'S INCLUDED</div>
+    <h2 class="section-title reveal">Concierge-Level Hormone Care</h2>
+    <p class="section-subtitle reveal">
       This isn't a prescription mill. It's a comprehensive, physician-led optimization service built for men who take their health as seriously as their work.
     </p>
 
     <div class="service-grid">
-      <div class="service-card">
-        <h3><span class="dot"></span>Dedicated Physician</h3>
-        <p>Work one-on-one with a knowledgeable physician experienced in male hormone optimization. Not a chatbot. Not a nurse practitioner relay. A real doctor who knows your case.</p>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Dedicated Physician</h3>
+        <p>Work one-on-one with a knowledgeable physician experienced in male hormone optimization. Not a chatbot. Not a relay. A real doctor who knows your case.</p>
       </div>
-      <div class="service-card">
-        <h3><span class="dot"></span>Monthly Consultations</h3>
-        <p>Regular check-ins to discuss how you're feeling, review lab trends, and make protocol adjustments. We don't prescribe and disappear — we stay engaged in your progress.</p>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Monthly Consultations</h3>
+        <p>Regular check-ins to review lab trends, discuss how you're feeling, and make protocol adjustments. We stay engaged in your progress.</p>
       </div>
-      <div class="service-card">
-        <h3><span class="dot"></span>Comprehensive Lab Panels</h3>
-        <p>Routine bloodwork to monitor your hormonal response, liver function, metabolic markers, and overall health. Data-driven decisions — every step of the way.</p>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M5 14.5l3.5 6.5h7L19 14.5" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Comprehensive Lab Panels</h3>
+        <p>Routine bloodwork to monitor your hormonal response, liver function, metabolic markers, and overall health. Data-driven decisions at every step.</p>
       </div>
-      <div class="service-card">
-        <h3><span class="dot"></span>Personalized Protocol Design</h3>
-        <p>Your dosage and protocol are tailored to your unique physiology. We start conservative, titrate based on labs, and optimize based on how you respond — not population averages.</p>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Personalized Protocol Design</h3>
+        <p>Your dosage is tailored to your unique physiology. We start conservative, titrate based on labs, and optimize based on how you respond.</p>
       </div>
-      <div class="service-card">
-        <h3><span class="dot"></span>Direct Medication Shipping</h3>
-        <p>Prescribed medication shipped directly to your door through a licensed pharmacy. No clinic visits. No pharmacy lines. Designed for your schedule.</p>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3l2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75l2.25-1.313M12 21.75V19.5m0 2.25l-2.25-1.313" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Direct Medication Shipping</h3>
+        <p>Prescribed medication shipped directly to your door through a licensed pharmacy. No clinic visits. No pharmacy lines. Built for your schedule.</p>
       </div>
-      <div class="service-card">
-        <h3><span class="dot"></span>Questions Answered, Always</h3>
-        <p>Especially in the early months, you'll have questions. We prioritize responsive communication so you feel confident and informed throughout your protocol.</p>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Questions Answered, Always</h3>
+        <p>Especially in the early months, you'll have questions. We prioritize responsive communication so you feel confident and informed throughout.</p>
       </div>
     </div>
   </div>
 </section>
 
+<div class="section-divider"></div>
+
 <!-- QUIZ / ASSESSMENT -->
 <section class="quiz-section" id="quiz">
   <div class="container quiz-container">
-    <div class="section-label">ELIGIBILITY ASSESSMENT</div>
-    <h2 class="section-title" style="text-align:center;">See If You Qualify</h2>
-    <p class="section-subtitle" style="text-align:center; margin: 0 auto 2.5rem;">
+    <div class="section-label reveal" style="text-align:center;">ELIGIBILITY ASSESSMENT</div>
+    <h2 class="section-title reveal" style="text-align:center;">See If You Qualify</h2>
+    <p class="section-subtitle reveal" style="text-align:center; margin: 0 auto 2.5rem;">
       Answer a few quick questions to determine if a physician consultation may be right for you. This is not a diagnostic tool — it helps our team prepare for your evaluation.
     </p>
 
-    <!-- Progress bars -->
     <div class="quiz-progress" id="quizProgress">
       <div class="bar active"></div>
       <div class="bar"></div>
@@ -916,222 +1637,100 @@
       <div class="bar"></div>
     </div>
 
-    <!-- STEP 1: Biological Sex -->
     <div class="quiz-step active" data-step="0">
       <div class="step-indicator">QUESTION 01 / 07</div>
       <h3>What is your biological sex?</h3>
       <p class="quiz-desc">Enclomiphene protocols are designed for biological males.</p>
       <div class="quiz-options" data-key="sex">
-        <div class="quiz-option" data-value="male" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>Male</span>
-        </div>
-        <div class="quiz-option" data-value="female" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>Female</span>
-        </div>
+        <div class="quiz-option" data-value="male" onclick="selectOption(this)"><div class="radio"></div><span>Male</span></div>
+        <div class="quiz-option" data-value="female" onclick="selectOption(this)"><div class="radio"></div><span>Female</span></div>
       </div>
-      <div class="quiz-nav">
-        <div></div>
-        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
-      </div>
+      <div class="quiz-nav"><div></div><button class="quiz-next" onclick="nextStep()">CONTINUE</button></div>
     </div>
 
-    <!-- STEP 2: Age -->
     <div class="quiz-step" data-step="1">
       <div class="step-indicator">QUESTION 02 / 07</div>
       <h3>How old are you?</h3>
       <p class="quiz-desc">Age is an important factor in evaluating hormonal health.</p>
       <div class="quiz-options" data-key="age">
-        <div class="quiz-option" data-value="under-18" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>Under 18</span>
-        </div>
-        <div class="quiz-option" data-value="18-29" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>18 – 29</span>
-        </div>
-        <div class="quiz-option" data-value="30-39" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>30 – 39</span>
-        </div>
-        <div class="quiz-option" data-value="40-54" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>40 – 54</span>
-        </div>
-        <div class="quiz-option" data-value="55+" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>55+</span>
-        </div>
+        <div class="quiz-option" data-value="under-18" onclick="selectOption(this)"><div class="radio"></div><span>Under 18</span></div>
+        <div class="quiz-option" data-value="18-29" onclick="selectOption(this)"><div class="radio"></div><span>18 – 29</span></div>
+        <div class="quiz-option" data-value="30-39" onclick="selectOption(this)"><div class="radio"></div><span>30 – 39</span></div>
+        <div class="quiz-option" data-value="40-54" onclick="selectOption(this)"><div class="radio"></div><span>40 – 54</span></div>
+        <div class="quiz-option" data-value="55+" onclick="selectOption(this)"><div class="radio"></div><span>55+</span></div>
       </div>
-      <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
-      </div>
+      <div class="quiz-nav"><button class="quiz-back" onclick="prevStep()">BACK</button><button class="quiz-next" onclick="nextStep()">CONTINUE</button></div>
     </div>
 
-    <!-- STEP 3: Symptoms -->
     <div class="quiz-step" data-step="2">
       <div class="step-indicator">QUESTION 03 / 07</div>
       <h3>Which of these have you experienced?</h3>
       <p class="quiz-desc">Select all that apply. These symptoms may be associated with suboptimal testosterone levels.</p>
       <div class="quiz-checkbox-grid" data-key="symptoms">
-        <div class="quiz-checkbox" data-value="fatigue" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Low energy / fatigue</span>
-        </div>
-        <div class="quiz-checkbox" data-value="focus" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Brain fog / poor focus</span>
-        </div>
-        <div class="quiz-checkbox" data-value="libido" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Decreased libido</span>
-        </div>
-        <div class="quiz-checkbox" data-value="muscle" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Muscle loss / difficulty gaining</span>
-        </div>
-        <div class="quiz-checkbox" data-value="fat" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Increased body fat</span>
-        </div>
-        <div class="quiz-checkbox" data-value="mood" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Mood changes / irritability</span>
-        </div>
-        <div class="quiz-checkbox" data-value="sleep" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Poor sleep quality</span>
-        </div>
-        <div class="quiz-checkbox" data-value="recovery" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Slow recovery from exercise</span>
-        </div>
+        <div class="quiz-checkbox" data-value="fatigue" onclick="toggleCheckbox(this)"><div class="check"></div><span>Low energy / fatigue</span></div>
+        <div class="quiz-checkbox" data-value="focus" onclick="toggleCheckbox(this)"><div class="check"></div><span>Brain fog / poor focus</span></div>
+        <div class="quiz-checkbox" data-value="libido" onclick="toggleCheckbox(this)"><div class="check"></div><span>Decreased libido</span></div>
+        <div class="quiz-checkbox" data-value="muscle" onclick="toggleCheckbox(this)"><div class="check"></div><span>Muscle loss / difficulty gaining</span></div>
+        <div class="quiz-checkbox" data-value="fat" onclick="toggleCheckbox(this)"><div class="check"></div><span>Increased body fat</span></div>
+        <div class="quiz-checkbox" data-value="mood" onclick="toggleCheckbox(this)"><div class="check"></div><span>Mood changes / irritability</span></div>
+        <div class="quiz-checkbox" data-value="sleep" onclick="toggleCheckbox(this)"><div class="check"></div><span>Poor sleep quality</span></div>
+        <div class="quiz-checkbox" data-value="recovery" onclick="toggleCheckbox(this)"><div class="check"></div><span>Slow recovery from exercise</span></div>
       </div>
-      <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next enabled" onclick="nextStep()">CONTINUE</button>
-      </div>
+      <div class="quiz-nav"><button class="quiz-back" onclick="prevStep()">BACK</button><button class="quiz-next enabled" onclick="nextStep()">CONTINUE</button></div>
     </div>
 
-    <!-- STEP 4: Prior Testing -->
     <div class="quiz-step" data-step="3">
       <div class="step-indicator">QUESTION 04 / 07</div>
       <h3>Have you had your testosterone levels tested before?</h3>
       <p class="quiz-desc">This helps our physicians understand your starting point.</p>
       <div class="quiz-options" data-key="tested">
-        <div class="quiz-option" data-value="yes-low" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>Yes, and my levels were low or borderline</span>
-        </div>
-        <div class="quiz-option" data-value="yes-normal" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>Yes, and my levels were in the normal range</span>
-        </div>
-        <div class="quiz-option" data-value="no" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>No, I've never been tested</span>
-        </div>
-        <div class="quiz-option" data-value="unsure" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>Not sure / don't remember</span>
-        </div>
+        <div class="quiz-option" data-value="yes-low" onclick="selectOption(this)"><div class="radio"></div><span>Yes, and my levels were low or borderline</span></div>
+        <div class="quiz-option" data-value="yes-normal" onclick="selectOption(this)"><div class="radio"></div><span>Yes, and my levels were in the normal range</span></div>
+        <div class="quiz-option" data-value="no" onclick="selectOption(this)"><div class="radio"></div><span>No, I've never been tested</span></div>
+        <div class="quiz-option" data-value="unsure" onclick="selectOption(this)"><div class="radio"></div><span>Not sure / don't remember</span></div>
       </div>
-      <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
-      </div>
+      <div class="quiz-nav"><button class="quiz-back" onclick="prevStep()">BACK</button><button class="quiz-next" onclick="nextStep()">CONTINUE</button></div>
     </div>
 
-    <!-- STEP 5: Current Treatment -->
     <div class="quiz-step" data-step="4">
       <div class="step-indicator">QUESTION 05 / 07</div>
       <h3>Are you currently using any form of testosterone therapy?</h3>
       <p class="quiz-desc">This includes injections, gels, patches, pellets, or any prescribed testosterone.</p>
       <div class="quiz-options" data-key="current_trt">
-        <div class="quiz-option" data-value="no" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>No, I'm not on any testosterone therapy</span>
-        </div>
-        <div class="quiz-option" data-value="yes-want-switch" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>Yes, but I'm interested in switching to an oral option</span>
-        </div>
-        <div class="quiz-option" data-value="yes-satisfied" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>Yes, and I'm generally satisfied with it</span>
-        </div>
+        <div class="quiz-option" data-value="no" onclick="selectOption(this)"><div class="radio"></div><span>No, I'm not on any testosterone therapy</span></div>
+        <div class="quiz-option" data-value="yes-want-switch" onclick="selectOption(this)"><div class="radio"></div><span>Yes, but I'm interested in switching to an oral option</span></div>
+        <div class="quiz-option" data-value="yes-satisfied" onclick="selectOption(this)"><div class="radio"></div><span>Yes, and I'm generally satisfied with it</span></div>
       </div>
-      <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
-      </div>
+      <div class="quiz-nav"><button class="quiz-back" onclick="prevStep()">BACK</button><button class="quiz-next" onclick="nextStep()">CONTINUE</button></div>
     </div>
 
-    <!-- STEP 6: Fertility -->
     <div class="quiz-step" data-step="5">
       <div class="step-indicator">QUESTION 06 / 07</div>
       <h3>Is preserving your fertility important to you?</h3>
       <p class="quiz-desc">Traditional TRT may impair sperm production. Enclomiphene is designed to maintain fertility.</p>
       <div class="quiz-options" data-key="fertility">
-        <div class="quiz-option" data-value="yes" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>Yes, fertility preservation is a priority</span>
-        </div>
-        <div class="quiz-option" data-value="maybe" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>Maybe — I'd like to keep my options open</span>
-        </div>
-        <div class="quiz-option" data-value="no" onclick="selectOption(this)">
-          <div class="radio"></div>
-          <span>Not a concern for me right now</span>
-        </div>
+        <div class="quiz-option" data-value="yes" onclick="selectOption(this)"><div class="radio"></div><span>Yes, fertility preservation is a priority</span></div>
+        <div class="quiz-option" data-value="maybe" onclick="selectOption(this)"><div class="radio"></div><span>Maybe — I'd like to keep my options open</span></div>
+        <div class="quiz-option" data-value="no" onclick="selectOption(this)"><div class="radio"></div><span>Not a concern for me right now</span></div>
       </div>
-      <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
-      </div>
+      <div class="quiz-nav"><button class="quiz-back" onclick="prevStep()">BACK</button><button class="quiz-next" onclick="nextStep()">CONTINUE</button></div>
     </div>
 
-    <!-- STEP 7: Medical Conditions -->
     <div class="quiz-step" data-step="6">
       <div class="step-indicator">QUESTION 07 / 07</div>
       <h3>Do any of the following apply to you?</h3>
       <p class="quiz-desc">Select all that apply. Certain conditions may require additional evaluation.</p>
       <div class="quiz-checkbox-grid" data-key="conditions">
-        <div class="quiz-checkbox" data-value="none" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>None of the below</span>
-        </div>
-        <div class="quiz-checkbox" data-value="liver" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Liver disease or condition</span>
-        </div>
-        <div class="quiz-checkbox" data-value="clotting" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Blood clotting disorder</span>
-        </div>
-        <div class="quiz-checkbox" data-value="cancer" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>History of hormone-sensitive cancer</span>
-        </div>
-        <div class="quiz-checkbox" data-value="pituitary" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Pituitary disorder</span>
-        </div>
-        <div class="quiz-checkbox" data-value="vision" onclick="toggleCheckbox(this)">
-          <div class="check"></div>
-          <span>Unexplained vision changes</span>
-        </div>
+        <div class="quiz-checkbox" data-value="none" onclick="toggleCheckbox(this)"><div class="check"></div><span>None of the below</span></div>
+        <div class="quiz-checkbox" data-value="liver" onclick="toggleCheckbox(this)"><div class="check"></div><span>Liver disease or condition</span></div>
+        <div class="quiz-checkbox" data-value="clotting" onclick="toggleCheckbox(this)"><div class="check"></div><span>Blood clotting disorder</span></div>
+        <div class="quiz-checkbox" data-value="cancer" onclick="toggleCheckbox(this)"><div class="check"></div><span>History of hormone-sensitive cancer</span></div>
+        <div class="quiz-checkbox" data-value="pituitary" onclick="toggleCheckbox(this)"><div class="check"></div><span>Pituitary disorder</span></div>
+        <div class="quiz-checkbox" data-value="vision" onclick="toggleCheckbox(this)"><div class="check"></div><span>Unexplained vision changes</span></div>
       </div>
-      <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next enabled" onclick="finishQuiz()">SEE RESULTS</button>
-      </div>
+      <div class="quiz-nav"><button class="quiz-back" onclick="prevStep()">BACK</button><button class="quiz-next enabled" onclick="finishQuiz()">SEE RESULTS</button></div>
     </div>
 
-    <!-- RESULT -->
     <div class="quiz-result" id="quizResult">
       <div class="qualified-msg">
         <div class="result-icon">&#10003;</div>
@@ -1141,7 +1740,7 @@
         <p style="font-size:0.75rem; color: var(--text-dim); margin-top: 1.5rem;">This assessment is for informational purposes only and does not constitute a medical diagnosis. A licensed physician will evaluate your eligibility during your consultation.</p>
       </div>
       <div class="disqualified">
-        <div class="result-icon" style="border-color: var(--amber); background: rgba(245, 158, 11, 0.1);">!</div>
+        <div class="result-icon" style="border-color: var(--amber); background: rgba(245, 158, 11, 0.1); box-shadow: 0 0 30px rgba(245, 158, 11, 0.1);">!</div>
         <h3>Additional Evaluation Needed</h3>
         <p id="disqualifyMessage">Based on your responses, we recommend speaking directly with a healthcare provider about your specific situation. Our team can still help — book a consultation to discuss your options.</p>
         <a href="https://calendly.com/andrew-prescientcapital/new-meeting" target="_blank" class="btn-primary">SPEAK WITH A PHYSICIAN</a>
@@ -1150,13 +1749,15 @@
   </div>
 </section>
 
+<div class="section-divider"></div>
+
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
-    <div class="section-label">FIG 05. COMMON QUESTIONS</div>
-    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="section-label reveal">FIG 05. COMMON QUESTIONS</div>
+    <h2 class="section-title reveal">Frequently Asked Questions</h2>
 
-    <div class="faq-list">
+    <div class="faq-list reveal">
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           <span>What is enclomiphene and how does it differ from traditional TRT?</span>
@@ -1233,12 +1834,13 @@
 <!-- FINAL CTA -->
 <section class="final-cta" id="book">
   <div class="container">
-    <div class="section-label" style="text-align:center;">READY TO OPTIMIZE?</div>
-    <h2>Stop Guessing. Get Your Levels Checked.</h2>
-    <p>Book a consultation with a physician who understands hormone optimization for high-performing men. No commitments — just a conversation about where you stand and what's possible.</p>
-    <a href="#quiz" class="btn-primary" style="margin-right:0.5rem;">TAKE THE ASSESSMENT</a>
-    <br style="display:none;">
-    <a href="https://calendly.com/andrew-prescientcapital/new-meeting" target="_blank" class="btn-primary" style="margin-top:1rem; background: transparent; border: 1px solid var(--accent); color: var(--accent);">BOOK DIRECTLY</a>
+    <div class="section-label reveal" style="text-align:center;">READY TO OPTIMIZE?</div>
+    <h2 class="reveal">Stop Guessing. Get Your Levels Checked.</h2>
+    <p class="reveal">Book a consultation with a physician who understands hormone optimization for high-performing men. No commitments — just a conversation about where you stand and what's possible.</p>
+    <div class="reveal">
+      <a href="#quiz" class="btn-primary" style="margin-right:0.5rem;">TAKE THE ASSESSMENT</a>
+      <a href="https://calendly.com/andrew-prescientcapital/new-meeting" target="_blank" class="btn-primary" style="margin-top:1rem; background: transparent; border: 1px solid var(--accent); color: var(--accent);">BOOK DIRECTLY</a>
+    </div>
   </div>
 </section>
 
@@ -1275,6 +1877,17 @@
 </footer>
 
 <script>
+  // ---- SCROLL REVEAL ----
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
   // ---- QUIZ LOGIC ----
   let currentStep = 0;
   const totalSteps = 7;
@@ -1285,15 +1898,12 @@
     parent.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
     answers[parent.dataset.key] = el.dataset.value;
-    // Enable next button
     el.closest('.quiz-step').querySelector('.quiz-next').classList.add('enabled');
   }
 
   function toggleCheckbox(el) {
     const parent = el.closest('[data-key]');
     const key = parent.dataset.key;
-
-    // Handle "None of the below" toggle
     if (el.dataset.value === 'none') {
       if (el.classList.contains('selected')) {
         el.classList.remove('selected');
@@ -1302,13 +1912,10 @@
         el.classList.add('selected');
       }
     } else {
-      // Deselect "none" if selecting something else
       const noneEl = parent.querySelector('[data-value="none"]');
       if (noneEl) noneEl.classList.remove('selected');
       el.classList.toggle('selected');
     }
-
-    // Collect selected values
     const selected = Array.from(parent.querySelectorAll('.quiz-checkbox.selected')).map(c => c.dataset.value);
     answers[key] = selected;
   }
@@ -1332,35 +1939,22 @@
   function nextStep() {
     const nextBtn = document.querySelector(`.quiz-step[data-step="${currentStep}"] .quiz-next`);
     if (!nextBtn.classList.contains('enabled')) return;
-
-    // Disqualification check: must be male
     if (currentStep === 0 && answers.sex === 'female') {
       showResult(true, 'This protocol is designed for biological males. We recommend consulting with your healthcare provider about hormone optimization options appropriate for you.');
       return;
     }
-
-    // Disqualification check: must be 18+
     if (currentStep === 1 && answers.age === 'under-18') {
       showResult(true, 'This service is only available to individuals 18 years and older. Please consult with your primary care physician.');
       return;
     }
-
-    if (currentStep < totalSteps - 1) {
-      showStep(currentStep + 1);
-    }
+    if (currentStep < totalSteps - 1) { showStep(currentStep + 1); }
   }
 
-  function prevStep() {
-    if (currentStep > 0) {
-      showStep(currentStep - 1);
-    }
-  }
+  function prevStep() { if (currentStep > 0) { showStep(currentStep - 1); } }
 
   function finishQuiz() {
-    // Check for serious contraindications
     const conditions = answers.conditions || [];
     const hasSerious = conditions.some(c => ['cancer', 'pituitary'].includes(c));
-
     if (hasSerious) {
       showResult(true, 'Based on your medical history, we recommend discussing your situation directly with a physician. Our team can still help evaluate your options during a consultation.');
     } else {
@@ -1373,15 +1967,12 @@
     const result = document.getElementById('quizResult');
     result.classList.add('active');
     result.style.display = 'block';
-
     if (disqualified) {
       result.classList.add('disqualified');
       if (message) document.getElementById('disqualifyMessage').textContent = message;
     } else {
       result.classList.remove('disqualified');
     }
-
-    // Complete all progress bars
     document.querySelectorAll('#quizProgress .bar').forEach(b => b.classList.add('complete'));
   }
 
@@ -1389,9 +1980,7 @@
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item');
     const isOpen = item.classList.contains('open');
-    // Close all
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    // Open clicked if it wasn't open
     if (!isOpen) item.classList.add('open');
   }
 
@@ -1400,9 +1989,7 @@
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
 </script>
