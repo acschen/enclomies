@@ -1134,7 +1134,7 @@
     /* ---- RESPONSIVE ---- */
     @media (max-width: 900px) {
       .hero-layout { grid-template-columns: 1fr; gap: 2rem; }
-      .hero-visual { display: none; }
+      .hero-visual { max-width: 100%; }
       .no-needles-badge { width: fit-content; }
       .hero h1 { white-space: normal; font-size: clamp(1.6rem, 6vw, 2.5rem); }
     }
@@ -1307,12 +1307,17 @@
 <section class="story-section" id="problem">
   <div class="container">
     <div class="story-intro reveal">
-      <div class="section-label" style="text-align:center;">FIG 01. THE MODERN PERFORMANCE PROBLEM</div>
-      <div class="big-stat">1 in 4</div>
-      <div class="big-stat-label">men over 30 may have testosterone levels below the optimal range</div>
-      <h2 class="section-title" style="text-align:center;">Optimized Stack, Neglected Biology</h2>
+      <div class="section-label" style="text-align:center;">FIG 01. THE TESTOSTERONE EPIDEMIC</div>
+      <div class="big-stat">~50%</div>
+      <div class="big-stat-label">decline in men's average testosterone levels since the 1970s</div>
+      <h2 class="section-title" style="text-align:center;">Your Grandfather Had More T at Your Age</h2>
       <p class="section-subtitle" style="text-align:center; margin: 0 auto;">
-        You've tuned every system in your life for performance — except the one running your body. Chronic stress, poor sleep, blue light exposure, and sedentary work are silently degrading your hormonal baseline.
+        Population testosterone levels have been falling 1–2% per year for decades — independent of aging. Today's 30-year-old man has roughly 25% less testosterone than a 30-year-old in the year 2000. Chronic stress, poor sleep, endocrine disruptors, and sedentary work are silently degrading your hormonal baseline.
+      </p>
+      <p style="text-align:center; margin-top: 0.75rem;">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/17062768/" target="_blank" rel="noopener" style="font-family: var(--mono); font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.05em; text-decoration: underline; text-underline-offset: 3px;">Travison et al. J Clin Endocrinol Metab. 2007</a>
+        <span style="font-family: var(--mono); font-size: 0.65rem; color: var(--text-dim); margin: 0 0.5rem;">|</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/32081788/" target="_blank" rel="noopener" style="font-family: var(--mono); font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.05em; text-decoration: underline; text-underline-offset: 3px;">Lokeshwar et al. Eur Urol Focus. 2021</a>
       </p>
     </div>
 
